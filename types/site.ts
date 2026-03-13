@@ -6,8 +6,12 @@
 // ─────────────────────────────────────────────────────────────
 
 export type NavItem = {
-  label:     string
-  href:      string
+  label:    string
+  href:     string
+  // 'route'  — full page navigation via Next.js Link
+  // 'anchor' — smooth scroll via Lenis scrollTo (home page sections)
+  // Defaults to 'route' in Navbar if omitted
+  type?:    'route' | 'anchor'
   children?: Array<{ label: string; href: string }>
 }
 
@@ -35,12 +39,18 @@ export type WorkItem = {
 }
 
 export type TeamMember = {
-  name:      string
-  role:      string
-  bio:       string
-  avatar:    string
-  linkedin?: string
-  twitter?:  string
+  slug:       string   // 'amina-oduya' — URL slug for /team/[slug]
+  name:       string
+  role:       string
+  department: string   // 'Engineering' | 'Design' | 'Leadership' | 'Operations'
+  bio:        string   // Short bio — used in cards + hero
+  fullBio?:   string[] // Paragraphs for the detail page
+  avatar:     string
+  linkedin?:  string
+  twitter?:   string
+  skills?:    string[] // ['Product Strategy', 'React', ...]
+  // Work items this member contributed to (by slug)
+  projects?:  string[]
 }
 
 export type Testimonial = {
@@ -82,10 +92,9 @@ export type SiteTokens = {
 }
 
 export type SiteLayout = {
-  // Controls navbar background behaviour
-  // 'solid'       — always has white background
-  // 'transparent' — floats over hero, fills in on scroll
-  navbarStyle: 'solid' | 'transparent'
+  // true  = hero has dark/image background — use light (white) logo + links when at top
+  // false = hero has light background — use dark logo + links always
+  heroIsDark:  boolean
   // Controls footer layout
   // 'columns' — full footer with link groups + socials
   // 'minimal' — single row: logo + legal + socials

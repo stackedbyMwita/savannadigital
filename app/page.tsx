@@ -8,7 +8,7 @@ import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import Hero         from '@/components/sections/Hero'
+import { Hero }         from '@/components/sections/Hero'
 import Stats        from '@/components/sections/Stats'
 import About        from '@/components/sections/About'
 import Services     from '@/components/sections/Services'

@@ -6,7 +6,7 @@ import { motion } from 'motion/react'
 import { Linkedin, Twitter, Instagram, Github, Youtube } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { site } from '@/content'
-import { CTAButton } from '@/components/ui/custom/CTAButton'
+import { CTAButton } from '@/components/ui/CTAButton'
 
 // ─────────────────────────────────────────────────────────────
 // HELPERS
@@ -98,7 +98,7 @@ function BottomBar() {
 function FooterColumns() {
   return (
     <footer
-      className="relative overflow-hidden"
+      className="relative overflow-hidden py-16"
       style={{ backgroundColor: site.tokens.dark }}
     >
       {/* Grain texture */}
@@ -170,9 +170,6 @@ function FooterColumns() {
               href="/contact"
               variant="primary"
               size="md"
-              radius="full"
-              border="rainbow"
-              animDuration={5}
             >
               Start a Project
             </CTAButton>

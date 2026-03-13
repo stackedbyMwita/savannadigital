@@ -1,236 +1,228 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Menu } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { site } from '@/content'
 import { staggerContainer, staggerItem } from '@/lib/custom/animations'
-import { CTAButton } from '@/components/ui/custom/CTAButton'
+import { CTAButton } from '@/components/ui/CTAButton'
+import { useLenis } from '@/components/providers/LenisProvider'
+
+export const NAV_HEIGHT_PX = 72
 
 // ─────────────────────────────────────────────────────────────
-// CONSTANTS
+// ANCHOR SCROLL HOOK
 // ─────────────────────────────────────────────────────────────
 
-// Navbar is z-50. Mobile menu is z-[60] so it renders ABOVE the
-// navbar — close button is always visible and accessible.
-const Z_NAVBAR      = 'z-50'
-const Z_MOBILE_MENU = 'z-[60]'
+function useAnchorScroll() {
+  const pathname = usePathname()
+  const router   = useRouter()
+  const lenis    = useLenis()
 
-// Navbar height — used in both the nav and the mobile menu top bar
-// so they're always in sync
-const NAV_HEIGHT_PX = 72
+  // After navigating to / with a hash, scroll to the section.
+  // Only depends on pathname — not lenis — so re-renders of the
+  // Lenis provider don't retrigger this and cause phantom scrolls.
+  useEffect(() => {
+    const hash = window.location.hash
+    if (!hash || !lenis) return
+    const timer = setTimeout(() => {
+      lenis.scrollTo(hash, { offset: -NAV_HEIGHT_PX, duration: 1.2 })
+      // Clear the hash from the URL after scrolling so it doesn't
+      // retrigger on subsequent lenis/pathname changes
+      window.history.replaceState(null, '', window.location.pathname)
+    }, 150)
+    return () => clearTimeout(timer)
+  }, [pathname]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  function handleAnchorClick(e: React.MouseEvent, item: typeof site.nav[0]) {
+    if (item.type !== 'anchor') return
+    e.preventDefault()
+    const hash = item.href.split('#')[1]
+    if (!hash) return
+    if (pathname === '/') {
+      lenis?.scrollTo(`#${hash}`, { offset: -NAV_HEIGHT_PX, duration: 1.2 })
+    } else {
+      router.push(item.href)
+    }
+  }
+
+  return { handleAnchorClick }
+}
+
+// ─────────────────────────────────────────────────────────────
+// DESKTOP NAV LINK
+// ─────────────────────────────────────────────────────────────
+
+function NavLink({
+  children,
+  useLightNav,
+  active,
+  onClick,
+  href,
+  isAnchor,
+}: {
+  children:    React.ReactNode
+  useLightNav: boolean
+  active:      boolean
+  onClick?:    (e: React.MouseEvent) => void
+  href:        string
+  isAnchor:    boolean
+}) {
+  const [hovered, setHovered] = useState(false)
+
+  const color = active
+    ? (useLightNav ? 'rgba(255,255,255,1)' : 'var(--color-primary)')
+    : hovered
+    ? (useLightNav ? 'rgba(255,255,255,1)' : 'rgba(28,28,30,1)')
+    : (useLightNav ? 'rgba(255,255,255,0.75)' : 'rgba(28,28,30,0.65)')
+
+  const underlineColor = useLightNav ? 'rgba(255,255,255,0.8)' : 'var(--color-primary)'
+
+  const sharedClass = 'relative text-sm font-medium tracking-wide bg-transparent border-none cursor-pointer p-0'
+
+  const inner = (
+    <motion.span
+      animate={{ color }}
+      transition={{ duration: 0.3 }}
+      className="relative inline-block"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {children}
+      <motion.span
+        aria-hidden
+        animate={{ width: active || hovered ? '100%' : '0%', backgroundColor: underlineColor }}
+        transition={{ duration: 0.25 }}
+        style={{ position: 'absolute', bottom: -4, left: 0, height: 1.5, borderRadius: 9999, display: 'block' }}
+      />
+    </motion.span>
+  )
+
+  if (isAnchor) {
+    return <button onClick={onClick} className={sharedClass}>{inner}</button>
+  }
+
+  return <Link href={href} className={sharedClass}>{inner}</Link>
+}
 
 // ─────────────────────────────────────────────────────────────
 // MOBILE MENU
 // ─────────────────────────────────────────────────────────────
 
-type MobileMenuProps = {
-  onClose: () => void
-}
-
-function MobileMenu({ onClose }: MobileMenuProps) {
-  const pathname = usePathname()
+function MobileMenu({ onClose }: { onClose: () => void }) {
+  const pathname              = usePathname()
+  const { handleAnchorClick } = useAnchorScroll()
 
   return (
-    <motion.div
-      initial={{ clipPath: 'inset(0 0 100% 0)' }}
-      animate={{ clipPath: 'inset(0 0 0% 0)'   }}
-      exit={{    clipPath: 'inset(0 0 100% 0)'  }}
-      transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-      className={cn(
-        'fixed inset-0 flex flex-col',
-        Z_MOBILE_MENU,
-      )}
+    <div
+      className="fixed inset-0 z-[60] flex flex-col"
       style={{ backgroundColor: site.tokens.dark }}
       id="mobile-menu"
       role="dialog"
       aria-modal="true"
       aria-label="Navigation menu"
     >
-
-      {/* ── Grain texture ─────────────────────────────────── */}
+      {/* Top bar */}
       <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundSize: '200px 200px',
-        }}
-      />
-
-      {/* ── Top bar — same height as navbar ───────────────── */}
-      <div
-        className="relative flex items-center justify-between flex-shrink-0 px-6 md:px-10"
-        style={{ height: NAV_HEIGHT_PX }}
+        className="flex-shrink-0 flex items-center justify-between px-6 md:px-10"
+        style={{ height: NAV_HEIGHT_PX, borderBottom: '1px solid rgba(255,255,255,0.07)' }}
       >
-        {/* Logo */}
-        <Link
-          href="/"
-          onNavigate={onClose}
-          className="flex-shrink-0"
-          aria-label={`${site.name} — Home`}
-        >
-          <Image
-            src={site.logo.light}
-            alt={site.name}
-            width={130}
-            height={34}
-            className="h-8 w-auto"
-          />
+        <Link href="/" onClick={onClose} aria-label={`${site.name} — Home`}>
+          <Image src={site.logo.full} alt={site.name} width={130} height={34} className="h-8 w-auto" />
         </Link>
 
-        {/* Close button — always visible because z-[60] > z-50 */}
-        <motion.button
+        <button
           onClick={onClose}
-          aria-label="Close navigation menu"
-          className={cn(
-            'flex items-center gap-2 px-4 py-2 rounded-full',
-            'text-sm font-medium transition-colors duration-200',
-            'border border-white/10 hover:border-white/25',
-          )}
-          style={{ color: 'rgba(255,255,255,0.6)' }}
-          initial={{ opacity: 0, x: 16 }}
-          animate={{ opacity: 1, x: 0  }}
-          transition={{ duration: 0.3, delay: 0.15 }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.97 }}
+          aria-label="Close menu"
+          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
+          style={{ color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.12)' }}
         >
-          <span>Close</span>
-          <span className="text-xs opacity-50 font-mono">ESC</span>
-        </motion.button>
+          Close
+          <span className="text-xs font-mono" style={{ opacity: 0.4 }}>ESC</span>
+        </button>
       </div>
 
-      {/* ── Divider ───────────────────────────────────────── */}
-      <div
-        aria-hidden
-        className="mx-6 md:mx-10 flex-shrink-0"
-        style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.07)' }}
-      />
-
-      {/* ── Nav links ─────────────────────────────────────── */}
+      {/* Nav links */}
       <motion.nav
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
-        className="flex-1 flex flex-col justify-center px-6 md:px-10 py-10 overflow-y-auto"
+        className="flex-1 flex flex-col justify-center px-6 md:px-10 overflow-y-auto"
       >
-        <ul className="space-y-0">
+        <ul className="list-none m-0 p-0 w-full">
           {site.nav.map((item, index) => {
-            const isActive = pathname === item.href
-            return (
-              <motion.li key={item.href} variants={staggerItem}>
-                <Link
-                  href={item.href}
-                  onNavigate={onClose}
-                  className="group flex items-center justify-between py-5 border-b border-white/[0.06]"
-                >
-                  {/* Left: index + label */}
-                  <div className="flex items-baseline gap-4">
-                    <span
-                      className="text-[11px] font-mono tabular-nums"
-                      style={{ color: 'rgba(255,255,255,0.2)' }}
-                    >
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span
-                      className={cn(
-                        'text-[clamp(2rem,6vw,3.5rem)] font-bold tracking-tight leading-none',
-                        'transition-colors duration-200',
-                        isActive
-                          ? 'text-white'
-                          : 'text-white/35 group-hover:text-white',
-                      )}
-                    >
-                      {item.label}
-                    </span>
-                  </div>
+            const isActive  = item.type !== 'anchor' && pathname === item.href
+            const rowClass  = cn(
+              'group w-full flex items-center justify-between py-5',
+              'transition-colors duration-200',
+            )
 
-                  {/* Right: arrow */}
-                  <span
-                    className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    style={{ color: site.tokens.accent }}
-                    aria-hidden
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                    </svg>
+            const label = (
+              <>
+                <div className="flex items-baseline gap-4">
+                  <span className="text-[11px] font-mono tabular-nums" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                    {String(index + 1).padStart(2, '0')}
                   </span>
-                </Link>
+                  <span
+                    className="text-4xl md:text-5xl font-bold tracking-tight leading-none transition-colors duration-200 group-hover:text-white"
+                    style={{ color: isActive ? 'white' : 'rgba(255,255,255,0.3)' }}
+                  >
+                    {item.label}
+                  </span>
+                </div>
+                <svg
+                  aria-hidden width="20" height="20" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round"
+                  className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  style={{ color: site.tokens.accent }}
+                >
+                  <path d="M7 17L17 7M17 7H7M17 7v10" />
+                </svg>
+              </>
+            )
+
+            return (
+              <motion.li
+                key={item.href}
+                variants={staggerItem}
+                style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+              >
+                {item.type === 'anchor' ? (
+                  <button
+                    className={cn(rowClass, 'text-left w-full')}
+                    onClick={(e) => { handleAnchorClick(e, item); onClose() }}
+                  >
+                    {label}
+                  </button>
+                ) : (
+                  <Link href={item.href} className={rowClass} onClick={onClose}>
+                    {label}
+                  </Link>
+                )}
               </motion.li>
             )
           })}
         </ul>
       </motion.nav>
 
-      {/* ── Bottom bar ────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0  }}
-        transition={{ duration: 0.45, delay: 0.3 }}
-        className="flex-shrink-0 px-6 md:px-10 pb-10"
+      {/* Footer strip */}
+      <div
+        className="flex-shrink-0 px-6 md:px-10 py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-5"
+        style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
       >
-        {/* Divider */}
-        <div
-          aria-hidden
-          className="mb-8"
-          style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.07)' }}
-        />
-
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-
-          {/* Tagline + socials */}
-          <div className="space-y-4">
-            <p
-              className="text-sm font-medium italic"
-              style={{ color: 'rgba(255,255,255,0.3)' }}
-            >
-              {site.footer.tagline}
-            </p>
-
-            {site.footer.socials.length > 0 && (
-              <div className="flex items-center gap-5">
-                {site.footer.socials.map((social) => (
-                  <a
-                    key={social.platform}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[11px] uppercase tracking-widest font-medium transition-colors duration-200"
-                    style={{ color: 'rgba(255,255,255,0.25)' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = 'rgba(255,255,255,0.75)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'rgba(255,255,255,0.25)'
-                    }}
-                  >
-                    {social.platform}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* CTA */}
-          <CTAButton
-            href="/contact"
-            onNavigate={onClose}
-            variant="primary"
-            size="md"
-            radius="full"
-            border="rainbow"
-            animDuration={5}
-          >
-            Start a Project
-          </CTAButton>
-
-        </div>
-      </motion.div>
-    </motion.div>
+        <p className="text-sm italic" style={{ color: 'rgba(255,255,255,0.3)' }}>
+          {site.footer.tagline}
+        </p>
+        <CTAButton href="/contact" variant="primary" size="md" onClick={onClose}>
+          Start a Project
+        </CTAButton>
+      </div>
+    </div>
   )
 }
 
@@ -239,157 +231,144 @@ function MobileMenu({ onClose }: MobileMenuProps) {
 // ─────────────────────────────────────────────────────────────
 
 export function Navbar() {
-  const [scrolled,  setScrolled]  = useState(false)
-  const [menuOpen,  setMenuOpen]  = useState(false)
-  const pathname = usePathname()
+  const [visible,  setVisible]  = useState(true)
+  const [atTop,    setAtTop]    = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const lastScrollY             = useRef(0)
+  const pathname                = usePathname()
+  const { handleAnchorClick }   = useAnchorScroll()
 
-  // ── Scroll detection ──────────────────────────────────────
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    onScroll() // run once on mount — handles pre-scrolled pages
+    const onScroll = () => {
+      const y   = window.scrollY
+      const dir = y > lastScrollY.current ? 'down' : 'up'
+
+      setAtTop(y < 10)
+
+      if (y < 10)                     setVisible(true)
+      else if (dir === 'down' && y > 80) { setVisible(false); setMenuOpen(false) }
+      else if (dir === 'up')          setVisible(true)
+
+      lastScrollY.current = y
+    }
+
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // ── Lock body scroll when mobile menu open ────────────────
+  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  // ── Keyboard: Escape closes menu ─────────────────────────
+  // Close on ESC
   useEffect(() => {
     if (!menuOpen) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMenuOpen(false)
-    }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false) }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [menuOpen])
 
-  // ── Derived values ────────────────────────────────────────
-  const isTransparent = site.layout.navbarStyle === 'transparent'
-  // Stop floating once scrolled OR while menu is open
-  const isFloating    = isTransparent && !scrolled && !menuOpen
-  const logoSrc       = isFloating ? site.logo.light : site.logo.dark
-
-  // ── Dynamic classes ───────────────────────────────────────
-  const navClass = cn(
-    'fixed top-0 inset-x-0',
-    Z_NAVBAR,
-    'transition-all duration-500',
-    isFloating
-      ? 'bg-transparent'
-      : 'bg-white/95 backdrop-blur-md shadow-[0_1px_0_0_rgba(0,0,0,0.06)]',
-  )
-
-  const linkClass = (href: string) => {
-    const isActive = pathname === href
-    return cn(
-      'relative text-sm font-medium tracking-wide',
-      'transition-colors duration-200',
-      'after:absolute after:bottom-[-4px] after:left-0',
-      'after:h-[1.5px] after:w-0 after:rounded-full after:bg-current',
-      'after:transition-[width] after:duration-300 after:ease-out',
-      'hover:after:w-full',
-      isActive && 'after:w-full',
-      isFloating
-        ? isActive ? 'text-white'   : 'text-white/70 hover:text-white'
-        : isActive ? 'text-primary' : 'text-text/65 hover:text-text',
-    )
-  }
+  const useLightNav = atTop && site.layout.heroIsDark && !menuOpen
 
   return (
     <>
+      {/* ── Nav bar ─────────────────────────────────────────── */}
       <motion.nav
-        className={navClass}
-        style={{ height: NAV_HEIGHT_PX }}
+        className="fixed top-0 inset-x-0 z-50"
+        style={{
+          height:               NAV_HEIGHT_PX,
+          backgroundColor:      atTop && !menuOpen ? 'rgba(255,255,255,0)' : 'rgba(255,255,255,0.78)',
+          backdropFilter:       atTop && !menuOpen ? 'blur(0px)' : 'blur(20px)',
+          WebkitBackdropFilter: atTop && !menuOpen ? 'blur(0px)' : 'blur(20px)',
+          boxShadow:            atTop && !menuOpen ? 'none' : '0 1px 0 0 rgba(0,0,0,0.06)',
+          transition:           'background-color 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.4s ease',
+        }}
         initial={{ y: -NAV_HEIGHT_PX, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1], delay: 0.05 }}
+        animate={{ y: visible ? 0 : '-110%', opacity: visible ? 1 : 0 }}
+        transition={{
+          y:       { duration: 0.5, ease: [0.32, 0.72, 0, 1] },
+          opacity: { duration: 0.4 },
+        }}
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="container h-full flex items-center justify-between">
+        <motion.div
+          className="h-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+        >
+          <div className="container h-full flex items-center justify-between">
 
-          {/* ── Logo ─────────────────────────────────────── */}
-          <Link
-            href="/"
-            className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
-            aria-label={`${site.name} — Home`}
-          >
-            <Image
-              src={logoSrc}
-              alt={site.name}
-              width={140}
-              height={36}
-              priority
-              className="h-9 w-auto transition-[opacity,filter] duration-300"
-            />
-          </Link>
+            {/* Logo */}
+            <Link href="/" className="relative flex-shrink-0 h-9 focus-visible:outline-none" style={{ width: 140 }} aria-label={`${site.name} — Home`}>
+              <motion.div className="absolute inset-0" animate={{ opacity: useLightNav ? 0 : 1 }} transition={{ duration: 0.5 }}>
+                <Image src={site.logo.full} alt={site.name} width={140} height={36} priority className="h-9 w-auto" />
+              </motion.div>
+              <motion.div className="absolute inset-0" animate={{ opacity: useLightNav ? 1 : 0 }} transition={{ duration: 0.5 }}>
+                <Image src={site.logo.light} alt="" aria-hidden width={140} height={36} className="h-9 w-auto" />
+              </motion.div>
+            </Link>
 
-          {/* ── Desktop links ────────────────────────────── */}
-          <ul className="hidden md:flex items-center gap-8 list-none">
-            {site.nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={linkClass(item.href)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            {/* Desktop links */}
+            <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
+              {site.nav.map((item) => (
+                <li key={item.href}>
+                  <NavLink
+                    href={item.href}
+                    isAnchor={item.type === 'anchor'}
+                    useLightNav={useLightNav}
+                    active={item.type !== 'anchor' && pathname === item.href}
+                    onClick={item.type === 'anchor' ? (e) => handleAnchorClick(e, item) : undefined}
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
 
-          {/* ── Right side: CTA + hamburger ──────────────── */}
-          <div className="flex items-center gap-3">
+            {/* CTA + Hamburger */}
+            <div className="flex items-center gap-3">
+              <div className="hidden md:block">
+                <CTAButton href="/contact" variant={useLightNav ? 'ghost' : 'primary'} size="sm">
+                  Get In Touch
+                </CTAButton>
+              </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:block">
-              <CTAButton
-                href="/contact"
-                variant={isFloating ? 'ghost' : 'primary'}
-                size="sm"
-                radius="full"
-                border={isFloating ? 'solid' : 'rainbow'}
-                borderColor={isFloating ? 'rgba(255,255,255,0.35)' : undefined}
-                innerBg={isFloating ? 'transparent' : undefined}
-                textColor={isFloating ? '#ffffff' : undefined}
-                animDuration={5}
+              <motion.button
+                className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg -mr-1"
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open navigation menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
+                animate={{ color: useLightNav ? 'rgba(255,255,255,1)' : 'rgba(28,28,30,0.8)' }}
+                transition={{ duration: 0.5 }}
+                whileTap={{ scale: 0.94 }}
               >
-                Get In Touch
-              </CTAButton>
+                <Menu size={22} />
+              </motion.button>
             </div>
 
-            {/* Mobile hamburger */}
-            <motion.button
-              className={cn(
-                'md:hidden flex items-center justify-center',
-                'w-10 h-10 rounded-lg -mr-1',
-                'transition-colors duration-200',
-                isFloating
-                  ? 'text-white hover:bg-white/10'
-                  : 'text-text hover:bg-black/5',
-              )}
-              onClick={() => setMenuOpen(true)}
-              aria-label="Open navigation menu"
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.92 }}
-            >
-              <Menu size={22} />
-            </motion.button>
-
           </div>
-        </div>
+        </motion.div>
       </motion.nav>
 
-      {/* ── Mobile menu — z-[60] sits above navbar z-50 ────── */}
+      {/* ── Mobile menu ──────────────────────────────────────── */}
       <AnimatePresence>
         {menuOpen && (
-          <MobileMenu onClose={() => setMenuOpen(false)} />
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0   }}
+            exit={{    opacity: 0, y: -12 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="md:hidden"
+          >
+            <MobileMenu onClose={() => setMenuOpen(false)} />
+          </motion.div>
         )}
       </AnimatePresence>
     </>

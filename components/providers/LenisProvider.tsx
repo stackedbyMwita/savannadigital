@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, createContext, useContext } from 'react'
+import { useEffect, useRef, useState, createContext, useContext } from 'react'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -25,7 +25,8 @@ export function useLenis() {
 // ─────────────────────────────────────────────────────────────
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null)
+  const lenisRef              = useRef<Lenis | null>(null)
+  const [instance, setInstance] = useState<Lenis | null>(null)
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -38,6 +39,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     })
 
     lenisRef.current = lenis
+    setInstance(lenis)
 
     // ── Critical: connect Lenis → GSAP ScrollTrigger ──────────
     // Without this, ScrollTrigger calculates scroll position from
@@ -60,7 +62,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <LenisContext.Provider value={lenisRef.current}>
+    <LenisContext.Provider value={instance}>
       {children}
     </LenisContext.Provider>
   )
