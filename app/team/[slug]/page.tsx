@@ -241,7 +241,7 @@ export default async function TeamMemberPage({
                       <Link key={c.slug} href={`/team/${c.slug}`} className="flex items-center gap-3 group">
                         <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                           <Image
-                            src={`https://i.pravatar.cc/80?u=${c.name}`}
+                            src={c.avatar}
                             alt={c.name}
                             fill
                             className="object-cover"

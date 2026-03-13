@@ -81,7 +81,8 @@ function inputStyle(focused: boolean, error: boolean) {
 
 function ContactForm() {
   const [focused,    setFocused]    = useState<string | null>(null)
-  const [submitState, setSubmitState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [submitState,  setSubmitState]  = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const {
     register,
@@ -95,16 +96,32 @@ function ContactForm() {
 
   async function onSubmit(data: ContactSchema) {
     setSubmitState('loading')
+    setErrorMessage(null)
+
     try {
       const res = await fetch('/api/contact', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(data),
       })
-      if (!res.ok) throw new Error()
+
+      const json = await res.json().catch(() => ({}))
+
+      if (!res.ok) {
+        const msg = json?.error ?? `Something went wrong (${res.status})`
+        if (process.env.NODE_ENV === 'development' && json?.detail) {
+          console.error('[contact]', json.detail)
+        }
+        setErrorMessage(msg)
+        setSubmitState('error')
+        return
+      }
+
       setSubmitState('success')
       reset()
-    } catch {
+    } catch (err) {
+      console.error('[contact]', err)
+      setErrorMessage('Network error — please check your connection and try again.')
       setSubmitState('error')
     }
   }
@@ -221,7 +238,7 @@ function ContactForm() {
               >
                 <SelectValue placeholder="Select a service..." />
               </SelectTrigger>
-              <SelectContent className="bg-white">
+              <SelectContent>
                 {site.contact.services.map((s) => (
                   <SelectItem key={s} value={s}>{s}</SelectItem>
                 ))}
@@ -248,7 +265,7 @@ function ContactForm() {
               >
                 <SelectValue placeholder="Select a range... (optional)" />
               </SelectTrigger>
-              <SelectContent className="bg-white">
+              <SelectContent>
                 {site.contact.budgetRanges.map((b) => (
                   <SelectItem key={b} value={b}>{b}</SelectItem>
                 ))}
@@ -276,10 +293,15 @@ function ContactForm() {
 
       {/* Error state */}
       {submitState === 'error' && (
-        <p className="text-sm flex items-center gap-2 p-3 rounded-lg" style={{ backgroundColor: '#FEF2F2', color: '#DC2626' }}>
-          <AlertCircle size={15} />
-          Something went wrong. Please try again or email us directly.
-        </p>
+        <div
+          className="flex items-start gap-3 p-4 rounded-xl text-sm"
+          style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626' }}
+        >
+          <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
+          <span>
+            {errorMessage ?? 'Something went wrong. Please try again or email us directly.'}
+          </span>
+        </div>
       )}
 
       {/* Submit */}

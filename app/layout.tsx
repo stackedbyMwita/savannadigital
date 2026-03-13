@@ -9,6 +9,7 @@ import { PageTransition } from '@/components/layout/PageTransition'
 import { Navbar }         from '@/components/layout/Navbar'
 import { Footer }         from '@/components/layout/Footer'
 import { site }           from '@/content'
+import { FloatingActions } from '@/components/ui/FloatingActions'
 
 // ── Base font — loaded globally, all sites fall back to this ──
 const outfit = Outfit({
@@ -98,6 +99,7 @@ export default function RootLayout({
               </PageTransition>
 
               <Footer />
+              <FloatingActions />
 
             </BrandProvider>
           </LenisProvider>

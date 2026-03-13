@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger)
 //   lenis?.scrollTo('#services', { offset: -72 })
 // ─────────────────────────────────────────────────────────────
 
-const LenisContext = createContext<Lenis | null>(null)
+export const LenisContext = createContext<Lenis | null>(null)
 
 export function useLenis() {
   return useContext(LenisContext)

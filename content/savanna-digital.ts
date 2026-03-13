@@ -858,6 +858,8 @@ export const savannaDigital: SiteConfig = {
     email:   'hello@savannadigital.co.ke',
     phone:   '+254 700 000 000',
     address: '5th Floor, Westlands Square, Nairobi, Kenya',
+    whatsapp: '254718521808',   // digits only — no + or spaces
+    message:  "Hi Savanna Digital, I visited your website and I'd like to discuss a project.",
     services: [
       'Web Development',
       'Mobile App',

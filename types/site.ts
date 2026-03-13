@@ -173,6 +173,8 @@ export type SiteConfig = {
     email:        string
     phone?:       string
     address?:     string
+    whatsapp?:    string   // wa.me format — digits only, no + or spaces e.g. '254700000000'
+    message?:     string   // WhatsApp prefill message — defaults to generic if omitted
     // Dropdown options in the contact form
     services:     string[]
     budgetRanges: string[]
