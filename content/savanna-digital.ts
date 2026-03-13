@@ -6,7 +6,7 @@ export const savannaDigital: SiteConfig = {
   id:          'savanna-digital',
   name:        'Savanna Digital Solutions',
   tagline:     'Rooted in Africa. Built for the World.',
-  description: 'East Africa\'s premier full-stack digital partner. We design and engineer products that scale.',
+  description: "East Africa's premier full-stack digital partner. We design and engineer products that scale.",
   url:         'https://savannahdm.vercel.app',
 
   logo: {
@@ -30,24 +30,24 @@ export const savannaDigital: SiteConfig = {
 
   // ── Layout ───────────────────────────────────────────────
   layout: {
-    heroIsDark:  false,   // light surface hero — dark logo/links always
+    heroIsDark:  false,
     footerStyle: 'columns',
   },
 
   // ── Navigation ───────────────────────────────────────────
   nav: [
-    { label: 'Home',     href: '/',           type: 'route'  },
-    { label: 'About',    href: '/#about',     type: 'anchor' },
-    { label: 'Services', href: '/#services',  type: 'anchor' },
-    { label: 'Work',     href: '/work',      type: 'route' },
-    { label: 'Blog',     href: '/blog',       type: 'route'  },
-    { label: 'Team',     href: '/team',       type: 'route'  },
-    { label: 'Contact',  href: '/contact',    type: 'route'  },
+    { label: 'Home',     href: '/',          type: 'route'  },
+    { label: 'About',    href: '/#about',    type: 'anchor' },
+    { label: 'Services', href: '/#services', type: 'anchor' },
+    { label: 'Work',     href: '/work',      type: 'route'  },
+    { label: 'Blog',     href: '/blog',      type: 'route'  },
+    { label: 'Team',     href: '/team',      type: 'route'  },
+    { label: 'Contact',  href: '/contact',   type: 'route'  },
   ],
 
   // ── Hero ─────────────────────────────────────────────────
   hero: {
-    eyebrow:        'East Africa\'s Digital Partner',
+    eyebrow:        "East Africa's Digital Partner",
     headline:       ['We Build', 'Digital Products', 'That Scale.'],
     subheadline:    'Full-stack design and engineering for ambitious African businesses. From brand to product — we deliver end to end.',
     cta:            { label: 'Start a Project', href: '/contact' },
@@ -60,7 +60,7 @@ export const savannaDigital: SiteConfig = {
     { value: '120+', label: 'Projects Delivered' },
     { value: '14',   label: 'Countries Served'   },
     { value: '98%',  label: 'Client Retention'   },
-    { value: '5yrs', label: 'In Business'         },
+    { value: '5yrs', label: 'In Business'        },
   ],
 
   // ── Services ─────────────────────────────────────────────
@@ -69,46 +69,41 @@ export const savannaDigital: SiteConfig = {
       icon:        'Code2',
       title:       'Web Development',
       description: 'Next.js, React, Node.js — fast, scalable, production-ready platforms built for African infrastructure.',
-      href:        '/services#web',
+      href:        '/#services',
     },
     {
       icon:        'Smartphone',
       title:       'Mobile Apps',
       description: 'iOS and Android apps built with React Native. Works on low-bandwidth networks.',
-      href:        '/services#mobile',
+      href:        '/#services',
     },
     {
       icon:        'Paintbrush',
       title:       'UI/UX Design',
       description: 'Human-centred design systems and prototypes. Research-led, pixel-precise.',
-      href:        '/services#design',
+      href:        '/#services',
     },
     {
       icon:        'Layers',
       title:       'Brand Identity',
       description: 'Logo, visual identity, brand strategy, and full design systems from scratch.',
-      href:        '/services#brand',
+      href:        '/#services',
     },
     {
       icon:        'Cloud',
       title:       'Cloud & DevOps',
       description: 'AWS, Vercel, Supabase deployments. CI/CD pipelines. Monitoring and scaling.',
-      href:        '/services#cloud',
+      href:        '/#services',
     },
     {
       icon:        'BarChart3',
       title:       'Data & Analytics',
       description: 'Dashboards, BI tools, and data pipelines that turn raw numbers into decisions.',
-      href:        '/services#data',
+      href:        '/#services',
     },
   ],
 
   // ── Work ─────────────────────────────────────────────────
-// ─────────────────────────────────────────────────────────────
-// WORK — paste this into savanna-digital.ts replacing the
-// existing `work: [...]` block
-// ─────────────────────────────────────────────────────────────
-
   work: [
     {
       slug:       'kenyabank-digital',
@@ -148,7 +143,6 @@ export const savannaDigital: SiteConfig = {
         ],
       },
     },
-
     {
       slug:       'mbiri-ecommerce',
       title:      'Mbiri Fashion eCommerce',
@@ -185,7 +179,6 @@ export const savannaDigital: SiteConfig = {
         ],
       },
     },
-
     {
       slug:       'agrohub-platform',
       title:      'AgroHub Farmer Platform',
@@ -223,7 +216,6 @@ export const savannaDigital: SiteConfig = {
         ],
       },
     },
-
     {
       slug:       'equity-mobile',
       title:      'Equity Bank Mobile Redesign',
@@ -260,7 +252,6 @@ export const savannaDigital: SiteConfig = {
         ],
       },
     },
-
     {
       slug:       'twiga-dashboard',
       title:      'Twiga Foods Ops Dashboard',
@@ -270,9 +261,9 @@ export const savannaDigital: SiteConfig = {
       tags:       ['Next.js', 'Supabase', 'Mapbox', 'Recharts'],
       summary:    'Real-time operations dashboard for tracking 3,000+ daily deliveries across Nairobi.',
       results: [
-        { value: '3K+',  label: 'Daily deliveries tracked'  },
-        { value: '18%',  label: 'Delivery efficiency gain'  },
-        { value: '8wks', label: 'Delivery timeline'         },
+        { value: '3K+',  label: 'Daily deliveries tracked' },
+        { value: '18%',  label: 'Delivery efficiency gain' },
+        { value: '8wks', label: 'Delivery timeline'        },
       ],
       caseStudy: {
         year:      '2024',
@@ -297,7 +288,6 @@ export const savannaDigital: SiteConfig = {
         ],
       },
     },
-
     {
       slug:       'mkopa-brand',
       title:      'M-KOPA Brand Identity',
@@ -307,9 +297,9 @@ export const savannaDigital: SiteConfig = {
       tags:       ['Brand Strategy', 'Visual Identity', 'Design System'],
       summary:    "Full brand refresh for M-KOPA's expansion into 4 new African markets. New identity, new design system.",
       results: [
-        { value: '4',    label: 'New markets launched'   },
-        { value: '60%',  label: 'Brand recall increase'  },
-        { value: '12wk', label: 'Full rollout'           },
+        { value: '4',    label: 'New markets launched'  },
+        { value: '60%',  label: 'Brand recall increase' },
+        { value: '12wk', label: 'Full rollout'          },
       ],
       caseStudy: {
         year:      '2023',
@@ -335,7 +325,6 @@ export const savannaDigital: SiteConfig = {
         ],
       },
     },
-
     {
       slug:       'kplc-portal',
       title:      'KPLC Self-Service Portal',
@@ -373,7 +362,6 @@ export const savannaDigital: SiteConfig = {
         ],
       },
     },
-
     {
       slug:       'farasicom-design-system',
       title:      'Farasicom Design System',
@@ -457,13 +445,13 @@ export const savannaDigital: SiteConfig = {
       bio:        'Product designer with a focus on emerging market UX. Former Safaricom.',
       fullBio: [
         'Fatuma leads all design work at Savanna DS — from initial research and wireframes to final pixel-perfect deliverables and design systems. Her speciality is designing for emerging market users: low literacy, shared devices, constrained connections.',
-        'Before joining Savanna DS, she spent three years at Safaricom on the M-PESA product team, designing flows used by over 30 million people. She has a deep understanding of what "good UX" actually means in the African context — and it\'s often different from what Western frameworks assume.',
+        "Before joining Savanna DS, she spent three years at Safaricom on the M-PESA product team, designing flows used by over 30 million people. She has a deep understanding of what \"good UX\" actually means in the African context — and it's often different from what Western frameworks assume.",
         'She has a BA in Graphic Design from Kenyatta University and a UX certification from Google. She mentors young designers through the Nairobi Design Week programme.',
       ],
       avatar:   '/sites/savanna-digital/team/fatuma-ali.png',
       linkedin: 'https://linkedin.com',
       skills:   ['Product Design', 'Design Systems', 'User Research', 'Figma', 'Emerging Market UX', 'Prototyping'],
-      projects: ['kenyabank-digital', 'mbiri-ecommerce', 'safaricom-design-system'],
+      projects: ['kenyabank-digital', 'mbiri-ecommerce', 'farasicom-design-system'],
     },
     {
       slug:       'james-kariuki',
@@ -473,7 +461,7 @@ export const savannaDigital: SiteConfig = {
       bio:        'Data engineer and BI specialist. Built analytics infrastructure for 3 Kenyan unicorns.',
       fullBio: [
         'James leads data engineering and analytics at Savanna DS. He has built data infrastructure that processes millions of events daily, and BI dashboards that turn raw operational data into decisions executives can act on.',
-        'Before Savanna DS, he built the data infrastructure at three of Kenya\'s most successful startups — two of which have since become unicorns. He has a particular talent for making data accessible to non-technical stakeholders without dumping it down.',
+        "Before Savanna DS, he built the data infrastructure at three of Kenya's most successful startups — two of which have since become unicorns. He has a particular talent for making data accessible to non-technical stakeholders without dumbing it down.",
         'He holds a BSc in Statistics from the University of Nairobi and is a certified AWS Data Analytics specialist.',
       ],
       avatar:   '/sites/savanna-digital/team/james-kariuki.png',
@@ -517,84 +505,78 @@ export const savannaDigital: SiteConfig = {
   ],
 
   // ── Testimonials ─────────────────────────────────────────
- testimonials: [
-  {
-    quote: "Savanna DS didn't just build our platform, they understood our market, our users, and our constraints. The result exceeded every benchmark we set.",
-    author: "James Weru",
-    role: "Chief Digital Officer",
-    company: "KenyaBank",
-    avatar: `https://i.pravatar.cc/80?u=JamesWeru`,
-  },
-  {
-    quote: "We'd worked with agencies in London and Dubai. Savanna DS delivered faster, understood Africa better, and the quality was world-class.",
-    author: "Priya Nair",
-    role: "CEO",
-    company: "Mbiri Collections",
-    avatar: `https://i.pravatar.cc/80?u=PriyaNair`,
-  },
-  {
-    quote: "The AgroHub app changed how 40,000 farmers access markets. Savanna DS built something that actually works in the field, on 2G, in the rain.",
-    author: "Dr. Samuel Koech",
-    role: "Executive Director",
-    company: "AgroHub Kenya",
-    avatar: `https://i.pravatar.cc/80?u=SamuelKoech`,
-  },
-
-  {
-    quote: "The new operations dashboard gave us something we never had before, a real-time picture of our entire delivery network. The efficiency gains were immediate.",
-    author: "Daniel Mwangi",
-    role: "Head of Logistics",
-    company: "Twiga Foods",
-    avatar: `https://i.pravatar.cc/80?u=DanielMwangi`,
-  },
-  {
-    quote: "Our onboarding drop-off had been a persistent problem. Savanna DS redesigned the experience with incredible attention to user behaviour. The results were measurable within weeks.",
-    author: "Grace Wanjiku",
-    role: "Product Director",
-    company: "Equity Bank",
-    avatar: `https://i.pravatar.cc/80?u=GraceWanjiku`,
-  },
-  {
-    quote: "Savanna DS approached our design system like an engineering problem, not just a design exercise. The result is a system our teams actually use every day.",
-    author: "Patrick Njoroge",
-    role: "Head of Product Platforms",
-    company: "Safaricom",
-    avatar: `https://i.pravatar.cc/80?u=PatrickNjoroge`,
-  },
-  {
-    quote: "Our customer support calls dropped dramatically after the portal launched. Customers finally have a self-service experience that actually works.",
-    author: "Rose Atieno",
-    role: "Customer Experience Lead",
-    company: "KPLC",
-    avatar: `https://i.pravatar.cc/80?u=RoseAtieno`,
-  },
-  {
-    quote: "The brand refresh repositioned M-KOPA for its next phase of growth. The identity system gave our teams the clarity and consistency we needed across multiple markets.",
-    author: "David Okello",
-    role: "Head of Brand",
-    company: "M-KOPA",
-    avatar: `https://i.pravatar.cc/80?u=DavidOkello`,
-  },
-],
+  testimonials: [
+    {
+      quote:   "Savanna DS didn't just build our platform, they understood our market, our users, and our constraints. The result exceeded every benchmark we set.",
+      author:  'James Weru',
+      role:    'Chief Digital Officer',
+      company: 'KenyaBank',
+      avatar:  'https://i.pravatar.cc/80?u=JamesWeru',
+    },
+    {
+      quote:   "We'd worked with agencies in London and Dubai. Savanna DS delivered faster, understood Africa better, and the quality was world-class.",
+      author:  'Priya Nair',
+      role:    'CEO',
+      company: 'Mbiri Collections',
+      avatar:  'https://i.pravatar.cc/80?u=PriyaNair',
+    },
+    {
+      quote:   "The AgroHub app changed how 40,000 farmers access markets. Savanna DS built something that actually works in the field, on 2G, in the rain.",
+      author:  'Dr. Samuel Koech',
+      role:    'Executive Director',
+      company: 'AgroHub Kenya',
+      avatar:  'https://i.pravatar.cc/80?u=SamuelKoech',
+    },
+    {
+      quote:   "The new operations dashboard gave us something we never had before — a real-time picture of our entire delivery network. The efficiency gains were immediate.",
+      author:  'Daniel Mwangi',
+      role:    'Head of Logistics',
+      company: 'Twiga Foods',
+      avatar:  'https://i.pravatar.cc/80?u=DanielMwangi',
+    },
+    {
+      quote:   "Our onboarding drop-off had been a persistent problem. Savanna DS redesigned the experience with incredible attention to user behaviour. The results were measurable within weeks.",
+      author:  'Grace Wanjiku',
+      role:    'Product Director',
+      company: 'Equity Bank',
+      avatar:  'https://i.pravatar.cc/80?u=GraceWanjiku',
+    },
+    {
+      quote:   "Savanna DS approached our design system like an engineering problem, not just a design exercise. The result is a system our teams actually use every day.",
+      author:  'Patrick Njoroge',
+      role:    'Head of Product Platforms',
+      company: 'Farasicom',
+      avatar:  'https://i.pravatar.cc/80?u=PatrickNjoroge',
+    },
+    {
+      quote:   "Our customer support calls dropped dramatically after the portal launched. Customers finally have a self-service experience that actually works.",
+      author:  'Rose Atieno',
+      role:    'Customer Experience Lead',
+      company: 'KPLC',
+      avatar:  'https://i.pravatar.cc/80?u=RoseAtieno',
+    },
+    {
+      quote:   "The brand refresh repositioned M-KOPA for its next phase of growth. The identity system gave our teams the clarity and consistency we needed across multiple markets.",
+      author:  'David Okello',
+      role:    'Head of Brand',
+      company: 'M-KOPA',
+      avatar:  'https://i.pravatar.cc/80?u=DavidOkello',
+    },
+  ],
 
   // ── Clients ──────────────────────────────────────────────
   clients: [
-    { name: 'KenyaBank',    logo: '/sites/savanna-digital/clients/kenyabank.svg'  },
-    { name: 'Farasicom',    logo: '/sites/savanna-digital/clients/safaricom.svg'  },
-    { name: 'AgroHub',      logo: '/sites/savanna-digital/clients/agrohub.svg'    },
-    { name: 'Mbiri',        logo: '/sites/savanna-digital/clients/mbiri.svg'      },
-    { name: 'KLCP',         logo: '/sites/savanna-digital/clients/kplc.svg'       },
-    { name: 'Twiga Candy',  logo: '/sites/savanna-digital/clients/twiga.svg'      },
-    { name: 'K-MOPA',       logo: '/sites/savanna-digital/clients/mkopa.svg'      },
-    { name: 'Erand Bank',  logo: '/sites/savanna-digital/clients/equity.svg'     },
+    { name: 'KenyaBank',   logo: '/sites/savanna-digital/clients/kenyabank.svg' },
+    { name: 'Farasicom',   logo: '/sites/savanna-digital/clients/farasicom.svg' },
+    { name: 'AgroHub',     logo: '/sites/savanna-digital/clients/agrohub.svg'   },
+    { name: 'Mbiri',       logo: '/sites/savanna-digital/clients/mbiri.svg'     },
+    { name: 'KLTS',        logo: '/sites/savanna-digital/clients/kplc.svg'      },
+    { name: 'Tiga Candy', logo: '/sites/savanna-digital/clients/twiga.svg'     },
+    { name: 'T-POKA',      logo: '/sites/savanna-digital/clients/mkopa.svg'     },
+    { name: 'Erands Bank', logo: '/sites/savanna-digital/clients/equity.svg'    },
   ],
 
   // ── Blog ─────────────────────────────────────────────────
-  // ─────────────────────────────────────────────────────────────
-// BLOG — paste this into savanna-digital.ts replacing blog: [...]
-// Cover images rotate across the 3 available assets
-// ─────────────────────────────────────────────────────────────
-
   blog: [
     {
       slug:       'building-for-africa',
@@ -604,10 +586,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Strategy',
       date:       '2025-03-01',
       readTime:   '5 min read',
-      author: {
-        name: 'Amina Oduya',
-        avatar:   '/sites/savanna-digital/team/amina-oduya.png',
-      },
+      author:     { name: 'Amin Oduya', avatar: '/sites/savanna-digital/team/amin-oduya.png' },
       tags:       ['Africa', 'Strategy', 'Product'],
       toc: [
         'Wrong defaults',
@@ -627,7 +606,6 @@ export const savannaDigital: SiteConfig = {
         "We're still learning. Every project teaches us something we didn't know. But the principle is solid: if it works here, in these conditions, with these constraints — it will work anywhere.",
       ],
     },
-
     {
       slug:       'next-js-low-bandwidth',
       title:      'Optimising Next.js for Low-Bandwidth Networks',
@@ -636,10 +614,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Engineering',
       date:       '2025-02-14',
       readTime:   '8 min read',
-      author: {
-        name: 'David Mwangi',
-        avatar: '/sites/savanna-digital/team/david-mwangi.png',
-      },
+      author:     { name: 'David Mwangi', avatar: '/sites/savanna-digital/team/david-mwangi.png' },
       tags:       ['Next.js', 'Engineering', 'Performance'],
       toc: [
         'The real benchmark',
@@ -659,7 +634,6 @@ export const savannaDigital: SiteConfig = {
         "The result: 1.1 seconds on fibre, 3.4 seconds on 3G — a 7.4x improvement on the metric that actually matters to customers. The Lighthouse score went up too, but that was just a side effect.",
       ],
     },
-
     {
       slug:       'design-systems-africa',
       title:      'Design Systems for African Products',
@@ -668,10 +642,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Design',
       date:       '2025-01-22',
       readTime:   '6 min read',
-      author: {
-        name: 'Fatuma Ali',
-        avatar:   '/sites/savanna-digital/team/fatuma-ali.png',
-      },
+      author:     { name: 'Fatuma Ali', avatar: '/sites/savanna-digital/team/fatuma-ali.png' },
       tags:       ['Design', 'Design Systems', 'Africa'],
       toc: [
         'The wrong starting point',
@@ -691,7 +662,6 @@ export const savannaDigital: SiteConfig = {
         "We test every component in the field before shipping. Not in a browser with device emulation — in actual conditions, on actual devices, with actual users. The number of design decisions that get reversed in a single afternoon of field testing would surprise you.",
       ],
     },
-
     {
       slug:       'mpesa-integration-guide',
       title:      "The Developer's Guide to M-PESA Integration",
@@ -700,10 +670,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Engineering',
       date:       '2024-12-10',
       readTime:   '10 min read',
-      author: {
-        name: 'David Mwangi',
-        avatar:   '/sites/savanna-digital/team/david-mwangi.png',
-      },
+      author:     { name: 'David Mwangi', avatar: '/sites/savanna-digital/team/david-mwangi.png' },
       tags:       ['M-PESA', 'Engineering', 'API', 'Fintech'],
       toc: [
         'Daraja API overview',
@@ -723,7 +690,6 @@ export const savannaDigital: SiteConfig = {
         "Done right, M-PESA integration is one of the most satisfying pieces of engineering you'll ship in the African market. It works. It's fast. Customers trust it completely. The engineering just needs to be solid enough not to let them down.",
       ],
     },
-
     {
       slug:       'mvp-to-scale-lessons',
       title:      "From MVP to Scale: What Changes and What Doesn't",
@@ -732,10 +698,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Product',
       date:       '2024-11-05',
       readTime:   '7 min read',
-      author: {
-        name: 'Amina Oduya',
-        avatar:   '/sites/savanna-digital/team/amina-oduya.png',
-      },
+      author:     { name: 'Amin Oduya', avatar: '/sites/savanna-digital/team/amin-oduya.png' },
       tags:       ['Product', 'Strategy', 'Scaling'],
       toc: [
         'What scales automatically',
@@ -755,7 +718,6 @@ export const savannaDigital: SiteConfig = {
         "Scale amplifies everything — good decisions and bad ones. The best time to fix a structural problem is before you need to.",
       ],
     },
-
     {
       slug:       'supabase-production-lessons',
       title:      'Supabase in Production: A Year of Lessons',
@@ -764,10 +726,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Engineering',
       date:       '2024-10-18',
       readTime:   '9 min read',
-      author: {
-        name: 'David Mwangi',
-        avatar:   '/sites/savanna-digital/team/david-mwangi.png',
-      },
+      author:     { name: 'David Mwangi', avatar: '/sites/savanna-digital/team/david-mwangi.png' },
       tags:       ['Supabase', 'Engineering', 'Backend', 'PostgreSQL'],
       toc: [
         'RLS from day one',
@@ -787,7 +746,6 @@ export const savannaDigital: SiteConfig = {
         "When to reach for something else: Supabase is the right default for most applications we build. Reach for something else when you need multi-region active-active replication, fundamentally graph-shaped access patterns, or a schema that changes so frequently that migration overhead becomes a bottleneck. For everything else — Supabase.",
       ],
     },
-
     {
       slug:       'client-management-agency',
       title:      'How We Run Client Projects Without Losing Our Minds',
@@ -796,10 +754,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Operations',
       date:       '2024-09-03',
       readTime:   '6 min read',
-      author: {
-        name: 'Amina Oduya',
-        avatar:   '/sites/savanna-digital/team/amina-oduya.png',
-      },
+      author:     { name: 'Amin Oduya', avatar: '/sites/savanna-digital/team/amin-oduya.png' },
       tags:       ['Operations', 'Process', 'Agency'],
       toc: [
         'The kickoff that actually works',
@@ -819,7 +774,6 @@ export const savannaDigital: SiteConfig = {
         "What we stopped doing: estimating tasks in hours. Hours are fiction. We estimate in confidence levels and flag uncertainty explicitly. A low-confidence estimate with visible reasoning builds more trust than a precise number that turns out to be wrong.",
       ],
     },
-
     {
       slug:       'react-native-east-africa',
       title:      'React Native for East African Mobile Apps: What Works',
@@ -828,10 +782,7 @@ export const savannaDigital: SiteConfig = {
       category:   'Engineering',
       date:       '2024-08-12',
       readTime:   '8 min read',
-      author: {
-        name: 'David Mwangi',
-        avatar:   '/sites/savanna-digital/team/david-mwangi.png',
-      },
+      author:     { name: 'David Mwangi', avatar: '/sites/savanna-digital/team/david-mwangi.png' },
       tags:       ['React Native', 'Engineering', 'Mobile', 'Africa'],
       toc: [
         'Why React Native',
@@ -855,10 +806,10 @@ export const savannaDigital: SiteConfig = {
 
   // ── Contact ──────────────────────────────────────────────
   contact: {
-    email:   'hello@savannadigital.co.ke',
-    phone:   '+254 700 000 000',
-    address: '5th Floor, Westlands Square, Nairobi, Kenya',
-    whatsapp: '254718521808',   // digits only — no + or spaces
+    email:    'hello@savannadigital.co.ke',
+    phone:    '+254 700 000 000',
+    address:  '5th Floor, Westlands Square, Nairobi, Kenya',
+    whatsapp: '254718521808',
     message:  "Hi Savanna Digital, I visited your website and I'd like to discuss a project.",
     services: [
       'Web Development',
@@ -901,29 +852,30 @@ export const savannaDigital: SiteConfig = {
       {
         group: 'Company',
         items: [
-          { label: 'About',   href: '/about'   },
-          { label: 'Work',    href: '/work'    },
-          { label: 'Blog',    href: '/blog'    },
-          { label: 'Contact', href: '/contact' },
+          { label: 'About',   href: '/#about'   },
+          { label: 'Work',    href: '/work'      },
+          { label: 'Blog',    href: '/blog'      },
+          { label: 'Team',    href: '/team'      },
+          { label: 'Contact', href: '/contact'   },
         ],
       },
       {
         group: 'Services',
         items: [
-          { label: 'Web Development', href: '/services#web'    },
-          { label: 'Mobile Apps',     href: '/services#mobile' },
-          { label: 'UI/UX Design',    href: '/services#design' },
-          { label: 'Brand Identity',  href: '/services#brand'  },
-          { label: 'Cloud & DevOps',  href: '/services#cloud'  },
-          { label: 'Data Analytics',  href: '/services#data'   },
+          { label: 'Web Development', href: '/#services' },
+          { label: 'Mobile Apps',     href: '/#services' },
+          { label: 'UI/UX Design',    href: '/#services' },
+          { label: 'Brand Identity',  href: '/#services' },
+          { label: 'Cloud & DevOps',  href: '/#services' },
+          { label: 'Data Analytics',  href: '/#services' },
         ],
       },
       {
         group: 'Legal',
         items: [
-          { label: 'Privacy Policy',    href: '/privacy'    },
-          { label: 'Terms of Service',  href: '/terms'      },
-          { label: 'Cookie Policy',     href: '/cookies'    },
+          { label: 'Privacy Policy',   href: '/privacy' },
+          { label: 'Terms of Service', href: '/terms'   },
+          { label: 'Cookie Policy',    href: '/cookies' },
         ],
       },
     ],
@@ -934,5 +886,86 @@ export const savannaDigital: SiteConfig = {
       { platform: 'behance',   href: 'https://behance.net/savannadigital'           },
     ],
     legal: '© 2025 Savanna Digital Solutions Ltd. All rights reserved.',
+  },
+
+  // ── Section & page copy ──────────────────────────────────
+  // All badge / title / description strings live here.
+  // Components read site.copy.* — never hardcode these in JSX.
+  copy: {
+
+    about: {
+      badge:       'About Us',
+      title:       "East Africa's Premier Digital Studio",
+      description: 'A Nairobi-based team of engineers, designers, and strategists building digital products for ambitious African businesses.',
+      values: [
+        {
+          heading: 'Africa-first thinking',
+          body:    'We build for real African infrastructure — low bandwidth, mobile-first, local payment rails.',
+        },
+        {
+          heading: 'End-to-end delivery',
+          body:    'From brand strategy to deployed product. One team, one accountable partner.',
+        },
+        {
+          heading: 'Radical transparency',
+          body:    'Weekly updates, open project boards, no surprises. You always know exactly where your project stands.',
+        },
+      ],
+    },
+
+    services: {
+      badge:       'What We Do',
+      title:       'Services Built to Scale',
+      description: 'From the first wireframe to a deployed, monitored, production system — we handle everything in-house.',
+    },
+
+    work: {
+      badge:       'Selected Work',
+      title:       "Products We're Proud Of",
+      description: 'A selection of recent client projects across fintech, retail, agri, and infrastructure.',
+    },
+
+    clients: {
+      badge:       'Trusted By',
+      title:       'Brands That Chose Us',
+      description: "From startups to publicly listed companies — they all needed the same thing: a digital partner that delivers.",
+    },
+
+    testimonials: {
+      badge: 'Testimonials',
+      title: 'What Clients Say',
+    },
+
+    blog: {
+      badge:       'Insights',
+      title:       'From the Studio',
+      description: 'Thinking on technology, design, and building products in Africa.',
+    },
+
+    contact: {
+      badge:       'Get In Touch',
+      title:       "Let's Build Something Great",
+      description: "Tell us what you're working on. We'll come back with how we'd approach it — no pitch, no pressure.",
+    },
+
+    workPage: {
+      badge:       'Our Work',
+      title:       'Built With Intention',
+      description: 'Every project starts with understanding the problem. Here is a selection of what we have shipped.',
+    },
+
+    blogPage: {
+      badge:       'The Studio Blog',
+      title:       'Ideas, Thinking & Craft',
+      description: 'Writing on technology, product design, and what it means to build for Africa.',
+    },
+
+    teamPage: {
+      badge:       'The Team',
+      title:       'People Behind the Work',
+      description: 'A small, senior team. Everyone here ships.',
+      deptOrder:   ['Leadership', 'Engineering', 'Design', 'Operations'],
+    },
+
   },
 }

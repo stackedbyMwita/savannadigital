@@ -192,8 +192,8 @@ function FooterColumns() {
                 {group.group}
               </p>
               <ul className="space-y-3">
-                {group.items.map((item) => (
-                  <li key={item.href}>
+                {group.items.map((item, index) => (
+                  <li key={index}>
                     <Link
                       href={item.href}
                       className="text-sm transition-colors duration-200 block"

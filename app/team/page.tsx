@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { Linkedin, Twitter, ArrowUpRight } from 'lucide-react'
 import { site } from '@/content'
 import { PageWrapper } from '@/components/layout/PageWrapper'
-import { SectionTitle } from '@/components/ui/SectionTitle'
 import { CTAButton } from '@/components/ui/CTAButton'
 
 // ─────────────────────────────────────────────────────────────

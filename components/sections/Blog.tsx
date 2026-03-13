@@ -99,9 +99,9 @@ export default function Blog() {
       <div className="container flex flex-col gap-14">
 
         <SectionTitle
-          badge="Insights"
-          title="From the Studio"
-          description="Thinking on technology, design, and building products in Africa."
+          badge={site.copy.blog.badge}
+          title={site.copy.blog.title}
+          description={site.copy.blog.description}
           variant="centered"
           size="lg"
         />

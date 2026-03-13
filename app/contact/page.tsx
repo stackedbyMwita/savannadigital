@@ -397,9 +397,9 @@ export default function ContactPage() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-12">
           <SectionTitle
-            badge="Get In Touch"
-            title="Let's Build Something Great"
-            description="Tell us what you're working on. We'll come back with how we'd approach it — no pitch, no pressure."
+            badge={site.copy.contact.badge}
+            title={site.copy.contact.title}
+            description={site.copy.contact.description}
             variant="centered"
             size="lg"
           />

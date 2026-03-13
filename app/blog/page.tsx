@@ -181,9 +181,9 @@ export default function BlogPage() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-12">
           <SectionTitle
-            badge="The Studio Blog"
-            title="Ideas, Thinking & Craft"
-            description="Writing on technology, product design, and what it means to build for Africa."
+            badge={site.copy.blog.badge}
+            title={site.copy.blog.title}
+            description={site.copy.blog.description}
             variant="centered"
             size="lg"
           />

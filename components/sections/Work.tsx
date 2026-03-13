@@ -120,9 +120,9 @@ export default function Work() {
       <div className="container flex flex-col gap-14">
 
         <SectionTitle
-          badge="Selected Work"
-          title="Products We're Proud Of"
-          description="A sample of recent client projects across fintech, retail, and agri."
+          badge={site.copy.work.badge}
+          title={site.copy.work.title}
+          description={site.copy.work.description}
           variant="centered"
           size="lg"
         />

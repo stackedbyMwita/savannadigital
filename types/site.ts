@@ -21,7 +21,7 @@ export type Stat = {
 }
 
 export type BlogAuthor = {
-  name: string,
+  name:   string
   avatar: string
 }
 
@@ -122,6 +122,30 @@ export type SiteLayout = {
   footerStyle: 'columns' | 'minimal'
 }
 
+// ─────────────────────────────────────────────────────────────
+// Section copy — badge / title / description for each section.
+// Components read from site.copy.* instead of hardcoding strings.
+// ─────────────────────────────────────────────────────────────
+
+export type SectionCopy = {
+  badge?:       string
+  title:        string
+  description?: string
+}
+
+export type SiteCopy = {
+  about:        SectionCopy & { values: Array<{ heading: string; body: string }> }
+  services:     SectionCopy
+  work:         SectionCopy
+  clients:      SectionCopy
+  testimonials: SectionCopy
+  blog:         SectionCopy
+  contact:      SectionCopy
+  workPage:     SectionCopy
+  blogPage:     SectionCopy
+  teamPage:     SectionCopy & { deptOrder: string[] }
+}
+
 export type SiteConfig = {
 
   // ── Identity ───────────────────────────────────────────────
@@ -201,4 +225,9 @@ export type SiteConfig = {
     }>
     legal: string   // '© 2025 Savanna Digital Solutions Ltd.'
   }
+
+  // ── Section & page copy ─────────────────────────────────────
+  // All badge / title / description strings for sections and pages.
+  // Components read site.copy.* — never hardcode these in JSX.
+  copy: SiteCopy
 }

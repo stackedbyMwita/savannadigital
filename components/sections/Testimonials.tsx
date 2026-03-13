@@ -84,8 +84,8 @@ export default function Testimonials() {
       <div className="container relative flex flex-col gap-16">
 
         <SectionTitle
-          badge="Testimonials"
-          title="What Clients Say"
+          badge={site.copy.testimonials.badge}
+          title={site.copy.testimonials.title}
           variant="centered"
           scheme="dark"
           size="lg"

@@ -123,9 +123,9 @@ export default function Services() {
       <div className="container flex flex-col gap-14">
 
         <SectionTitle
-          badge="What We Do"
-          title="Services Built to Scale"
-          description="From the first wireframe to a deployed, monitored, production system — we handle everything in-house."
+          badge={site.copy.services.badge}
+          title={site.copy.services.title}
+          description={site.copy.services.description}
           variant="centered"
           size="lg"
         />

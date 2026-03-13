@@ -171,9 +171,9 @@ export default function WorkPage() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-12">
           <SectionTitle
-            badge="Our Work"
-            title="Products We've Built"
-            description={`${ALL_WORK.length} projects across fintech, retail, agri, and infrastructure — spanning ${site.stats.find(s => s.label === 'Countries Served')?.value ?? '14'} countries.`}
+            badge={site.copy.work.badge}
+            title={site.copy.work.title}
+            description={site.copy.work.description}
             variant="centered"
             size="lg"
           />

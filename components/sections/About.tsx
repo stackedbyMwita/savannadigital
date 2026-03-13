@@ -80,9 +80,9 @@ export default function About() {
           <div className="order-1 lg:order-2 flex flex-col gap-8">
 
             <SectionTitle
-              badge="About Us"
-              title="East Africa's Premier Digital Studio"
-              description="Founded in Nairobi in 2019, we've grown from a 2-person studio to a 20+ team delivering world-class digital products across 14 countries."
+              badge={site.copy.about.badge}
+              title={site.copy.about.title}
+              description={site.copy.about.description}
               variant="centered"
               size="lg"
             />

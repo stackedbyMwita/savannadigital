@@ -49,9 +49,9 @@ export default function Clients() {
     <section className="py-20 flex flex-col max-w-6xl mx-auto gap-8" style={{ backgroundColor: 'white' }}>
       <div className="container">
         <SectionTitle
-          badge="Trusted By"
-          title="Brands That Chose Us"
-          description="From startups to publicly listed companies — they all needed the same thing: a digital partner that delivers."
+          badge={site.copy.clients.badge}
+          title={site.copy.clients.title}
+          description={site.copy.clients.description}
           variant="centered"
           size="md"
         />
