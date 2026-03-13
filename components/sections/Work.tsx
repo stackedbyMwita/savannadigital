@@ -13,7 +13,7 @@ import { CTAButton } from '@/components/ui/CTAButton'
 // ─────────────────────────────────────────────────────────────
 
 function WorkCard({ item, index }: { item: typeof site.work[0]; index: number }) {
-  const isLarge = index === 0
+  const isLarge = index === 0 || index === 3
 
   return (
     <motion.div
@@ -30,13 +30,7 @@ function WorkCard({ item, index }: { item: typeof site.work[0]; index: number })
       >
         {/* Cover image */}
         <Image
-          src={
-            index === 0
-              ? 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80'
-              : index === 1
-              ? 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80'
-              : 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80'
-          }
+          src={item.coverImage}
           alt={item.title}
           fill
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -135,7 +129,7 @@ export default function Work() {
 
         {/* Grid — first card spans 2 columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {site.work.map((item, i) => (
+          {site.work.slice(0, 4).map((item, i) => (
             <WorkCard key={item.slug} item={item} index={i} />
           ))}
         </div>

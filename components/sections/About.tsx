@@ -35,7 +35,7 @@ export default function About() {
               className="absolute top-0 left-0 w-[75%] h-[80%] rounded-2xl overflow-hidden shadow-xl"
             >
               <Image
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=80"
+                src="/sites/savanna-digital/savanna-ds-team.png"
                 alt="Savanna DS team working"
                 fill
                 className="object-cover"
@@ -53,7 +53,7 @@ export default function About() {
               style={{ border: `4px solid ${site.tokens.surface}` }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=500&q=80"
+                src="/sites/savanna-digital/team-collab.png"
                 alt="Team collaboration"
                 fill
                 className="object-cover"
@@ -131,7 +131,7 @@ export default function About() {
                     }}
                   >
                     <Image
-                      src={`https://i.pravatar.cc/80?u=${member.name}`}
+                      src={member.avatar}
                       alt={member.name}
                       fill
                       className="object-cover"

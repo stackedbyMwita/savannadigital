@@ -5,6 +5,7 @@ import { site } from '@/content'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { NewsletterStrip } from '@/components/ui/NewsletterStrip'
+import { formatDate } from '@/lib/utils'
 
 // ─────────────────────────────────────────────────────────────
 // BLOG PAGE
@@ -14,18 +15,6 @@ import { NewsletterStrip } from '@/components/ui/NewsletterStrip'
 export const metadata = {
   title:       `Blog`,
   description: `Thinking on technology, design, and building digital products in Africa. From the ${site.name} studio.`,
-}
-
-const BLOG_IMAGES = [
-  'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80',
-  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80',
-  'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80',
-]
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-GB', {
-    day: 'numeric', month: 'long', year: 'numeric',
-  })
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -44,7 +33,7 @@ function FeaturedPost() {
       {/* Image */}
       <div className="relative overflow-hidden" style={{ minHeight: 320 }}>
         <Image
-          src={BLOG_IMAGES[0]}
+          src={post.coverImage}
           alt={post.title}
           fill
           priority
@@ -74,7 +63,7 @@ function FeaturedPost() {
         <div className="flex flex-wrap items-center gap-4 text-xs" style={{ color: site.tokens.muted }}>
           <span className="flex items-center gap-1.5"><Calendar size={12} />{formatDate(post.date)}</span>
           <span className="flex items-center gap-1.5"><Clock size={12} />{post.readTime}</span>
-          <span className="flex items-center gap-1.5"><User size={12} />{post.author}</span>
+          <span className="flex items-center gap-1.5"><User size={12} />{post.author.name}</span>
         </div>
 
         <h2
@@ -114,7 +103,7 @@ function PostCard({ post, index }: { post: typeof site.blog[0]; index: number })
       {/* Image */}
       <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
         <Image
-          src={BLOG_IMAGES[index % BLOG_IMAGES.length]}
+          src={post.coverImage}
           alt={post.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -132,7 +121,7 @@ function PostCard({ post, index }: { post: typeof site.blog[0]; index: number })
       <div className="flex flex-col flex-1 gap-4 p-6">
         <div className="flex items-center gap-4 text-xs" style={{ color: site.tokens.muted }}>
           <span className="flex items-center gap-1.5"><Clock size={11} />{post.readTime}</span>
-          <span className="flex items-center gap-1.5"><User size={11} />{post.author}</span>
+          <span className="flex items-center gap-1.5"><User size={11} />{post.author.name}</span>
           <span className="ml-auto">{formatDate(post.date)}</span>
         </div>
 

@@ -11,6 +11,44 @@ import { SectionTitle } from '@/components/ui/SectionTitle'
 // TESTIMONIALS
 // Dark background, large quote carousel
 // ─────────────────────────────────────────────────────────────
+function TestimonialAuthor({ t, site }: { t: any; site: any }) {
+  const [imgSrc, setImgSrc] = useState(
+    t.avatar || `https://i.pravatar.cc/80?u=${encodeURIComponent(t.author)}`
+  )
+
+  return (
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div
+        className="w-12 h-12 rounded-full overflow-hidden ring-2"
+        style={{ boxShadow: `0 0 0 2px ${site.tokens.primary}` }}
+      >
+        <Image
+          src={imgSrc}
+          alt={t.author}
+          width={48}
+          height={48}
+          className="object-cover w-full h-full"
+          onError={() =>
+            setImgSrc(
+              `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(t.author)}`
+            )
+          }
+        />
+      </div>
+
+      <div className="text-center sm:text-left">
+        <p className="font-semibold text-white">{t.author}</p>
+
+        <p
+          className="text-sm"
+          style={{ color: "rgba(255,255,255,0.45)" }}
+        >
+          {t.role} · {t.company}
+        </p>
+      </div>
+    </div>
+  )
+}
 
 export default function Testimonials() {
   const [active, setActive] = useState(0)
@@ -83,23 +121,7 @@ export default function Testimonials() {
                 </p>
 
                 {/* Author */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden ring-2" style={{ ringColor: site.tokens.primary }}>
-                    <Image
-                      src={`https://i.pravatar.cc/96?u=${t.author}`}
-                      alt={t.author}
-                      width={48}
-                      height={48}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                  <div className="text-center sm:text-left">
-                    <p className="font-semibold text-white">{t.author}</p>
-                    <p className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                      {t.role} · {t.company}
-                    </p>
-                  </div>
-                </div>
+                <TestimonialAuthor t={t} site={site} />
 
               </motion.div>
             </AnimatePresence>

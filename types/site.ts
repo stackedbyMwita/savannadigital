@@ -20,6 +20,11 @@ export type Stat = {
   label: string   // 'Projects Delivered'
 }
 
+export type BlogAuthor = {
+  name: string,
+  avatar: string
+}
+
 export type Service = {
   icon:        string   // Lucide icon name e.g. 'Code2'
   title:       string
@@ -27,15 +32,28 @@ export type Service = {
   href?:       string
 }
 
+export type CaseStudySection = {
+  year:        string
+  duration:    string
+  services:    string[]
+  teamSlugs:   string[]   // matches TeamMember.name
+  challenge:   string[]   // paragraphs
+  approach:    string[]   // paragraphs
+  outcome:     string[]   // paragraphs
+  screenshots: string[]   // paths to /public or external URLs
+}
+
 export type WorkItem = {
-  slug:       string
-  title:      string
-  client:     string
-  category:   string
-  coverImage: string
-  tags:       string[]
-  summary:    string
-  results:    Stat[]
+  slug:        string
+  title:       string
+  client:      string
+  category:    string
+  coverImage:  string
+  tags:        string[]
+  summary:     string
+  results:     Stat[]
+  // Optional — present for case study detail pages
+  caseStudy?:  CaseStudySection
 }
 
 export type TeamMember = {
@@ -72,9 +90,12 @@ export type BlogPost = {
   excerpt:    string
   coverImage: string
   category:   string
-  date:       string   // ISO string e.g. '2025-03-01'
-  readTime:   string   // '5 min read'
-  author:     string
+  date:       string      // ISO string e.g. '2025-03-01'
+  readTime:   string      // '5 min read'
+  author:     BlogAuthor
+  body:       string[]    // paragraphs — index 2 rendered as pull quote
+  toc?:       string[]    // sidebar table of contents headings (optional)
+  tags?:      string[]    // tag pills at end of article (optional)
 }
 
 export type SiteTokens = {

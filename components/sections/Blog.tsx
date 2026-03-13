@@ -7,25 +7,12 @@ import { ArrowUpRight, Clock, User } from 'lucide-react'
 import { site } from '@/content'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { CTAButton } from '@/components/ui/CTAButton'
+import { formatDate } from '@/lib/utils'
 
 // ─────────────────────────────────────────────────────────────
 // BLOG
 // 3-column card grid — first card is featured (larger)
 // ─────────────────────────────────────────────────────────────
-
-const BLOG_IMAGES = [
-  'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80',
-  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80',
-  'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
-]
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-GB', {
-    day:   'numeric',
-    month: 'short',
-    year:  'numeric',
-  })
-}
 
 function BlogCard({ post, index }: { post: typeof site.blog[0]; index: number }) {
   const isFeatured = index === 0
@@ -49,7 +36,7 @@ function BlogCard({ post, index }: { post: typeof site.blog[0]; index: number })
           style={{ aspectRatio: isFeatured ? '16/8' : '16/9' }}
         >
           <Image
-            src={BLOG_IMAGES[index]}
+            src={post.coverImage}
             alt={post.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -74,7 +61,7 @@ function BlogCard({ post, index }: { post: typeof site.blog[0]; index: number })
             </span>
             <span className="flex items-center gap-1.5">
               <User size={12} />
-              {post.author}
+              {post.author.name}
             </span>
             <span className="ml-auto">{formatDate(post.date)}</span>
           </div>

@@ -47,7 +47,7 @@ function TeamCard({ member }: { member: typeof site.team[0] }) {
         style={{ aspectRatio: '4/3' }}
       >
         <Image
-          src={`https://i.pravatar.cc/480?u=${member.name}`}
+          src={member.avatar}
           alt={member.name}
           fill
           className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -217,7 +217,7 @@ export default function TeamPage() {
                     }}
                   >
                     <Image
-                      src={`https://i.pravatar.cc/112?u=${member.name}`}
+                      src={member.avatar}
                       alt={member.name}
                       fill
                       className="object-cover"

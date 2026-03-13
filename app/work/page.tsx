@@ -14,100 +14,14 @@ import { CTAButton } from '@/components/ui/CTAButton'
 // DATA — extend work items with more detail for the full page
 // ─────────────────────────────────────────────────────────────
 
-const WORK_IMAGES: Record<string, string> = {
-  'kenyabank-digital': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80',
-  'mbiri-ecommerce':   'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=80',
-  'agrohub-platform':  'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=900&q=80',
-}
-
 // Extra work items to fill the page (same shape as site.work)
-const EXTRA_WORK = [
-  {
-    slug:       'equity-mobile',
-    title:      'Equity Bank Mobile Redesign',
-    client:     'Equity Bank',
-    category:   'Mobile App',
-    coverImage: '',
-    tags:       ['React Native', 'TypeScript', 'Node.js'],
-    summary:    'End-to-end redesign of Equity Bank\'s mobile banking app. Reduced drop-off at onboarding by 44%.',
-    results: [
-      { value: '44%', label: 'Drop-off reduction'     },
-      { value: '4.6', label: 'App store rating'        },
-      { value: '2M+', label: 'Active users'            },
-    ],
-  },
-  {
-    slug:       'twiga-dashboard',
-    title:      'Twiga Foods Ops Dashboard',
-    client:     'Twiga Foods',
-    category:   'Web Application',
-    coverImage: '',
-    tags:       ['Next.js', 'Supabase', 'Mapbox', 'Recharts'],
-    summary:    'Real-time operations dashboard for tracking 3,000+ daily deliveries across Nairobi.',
-    results: [
-      { value: '3K+', label: 'Daily deliveries tracked' },
-      { value: '18%', label: 'Delivery efficiency gain'  },
-      { value: '8wks', label: 'Delivery timeline'        },
-    ],
-  },
-  {
-    slug:       'mkopa-brand',
-    title:      'M-KOPA Brand Identity',
-    client:     'M-KOPA',
-    category:   'Brand Identity',
-    coverImage: '',
-    tags:       ['Brand Strategy', 'Visual Identity', 'Design System'],
-    summary:    'Full brand refresh for M-KOPA\'s expansion into 4 new African markets. New identity, new design system.',
-    results: [
-      { value: '4',    label: 'New markets launched'    },
-      { value: '60%',  label: 'Brand recall increase'   },
-      { value: '12wk', label: 'Full rollout'            },
-    ],
-  },
-  {
-    slug:       'kplc-portal',
-    title:      'KPLC Self-Service Portal',
-    client:     'KPLC',
-    category:   'Web Application',
-    coverImage: '',
-    tags:       ['Next.js', 'PostgreSQL', 'AWS', 'M-PESA API'],
-    summary:    'Customer self-service portal for Kenya Power — bill payments, fault reporting, connection requests.',
-    results: [
-      { value: '500K', label: 'Monthly active users'   },
-      { value: '70%',  label: 'Call centre reduction'  },
-      { value: '99.9%', label: 'Uptime SLA'            },
-    ],
-  },
-  {
-    slug:       'safaricom-design-system',
-    title:      'Safaricom Design System',
-    client:     'Safaricom',
-    category:   'UI/UX Design',
-    coverImage: '',
-    tags:       ['Figma', 'React', 'Storybook', 'Design Tokens'],
-    summary:    'Enterprise design system used across 12 internal products and 3 customer-facing apps.',
-    results: [
-      { value: '12',  label: 'Products using system'  },
-      { value: '65%', label: 'Design velocity increase'},
-      { value: '200+', label: 'Components built'       },
-    ],
-  },
-]
 
-const EXTRA_IMAGES = [
-  'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&q=80',
-  'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80',
-  'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&q=80',
-  'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=900&q=80',
-  'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=900&q=80',
-]
+type WorkItem = (typeof site.work)[number]
 
-const ALL_WORK = [
-  ...site.work.map((w, i) => ({ ...w, image: WORK_IMAGES[w.slug] ?? EXTRA_IMAGES[i] })),
-  ...EXTRA_WORK.map((w, i) => ({ ...w, image: EXTRA_IMAGES[i] })),
-]
+const ALL_WORK: WorkItem[] = [...site.work]
 
 const ALL_CATEGORIES = ['All', ...Array.from(new Set(ALL_WORK.map((w) => w.category)))]
+
 
 // ─────────────────────────────────────────────────────────────
 // WORK CARD
@@ -117,13 +31,14 @@ function WorkCard({
   item,
   index,
 }: {
-  item:  typeof ALL_WORK[0]
+  item:  WorkItem
   index: number
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0  }}
+      whileHover={{ y: -4 }}
       transition={{ duration: 0.45, ease: 'easeOut', delay: Math.min(index * 0.06, 0.3) }}
     >
       <Link
@@ -134,11 +49,11 @@ function WorkCard({
         {/* Cover */}
         <div className="relative overflow-hidden" style={{ aspectRatio: '16/10' }}>
           <Image
-            src={item.image}
+            src={item.coverImage}
             alt={item.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
 
           {/* Gradient */}
