@@ -116,7 +116,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row sm:items-center gap-5 pt-2"
+              className="flex mx-auto items-center gap-5 pt-2"
             >
               {/* Stacked avatars */}
               <div className="flex items-center">
@@ -143,11 +143,21 @@ export default function About() {
                 </span>
               </div>
 
-              <CTAButton href="/team" variant="outline" size="sm" arrow>
+              
+            </motion.div>
+            
+            {/* View all */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="flex justify-center"
+            >
+              <CTAButton href="/team" variant="outline" size="md" arrow>
                 Meet the Team
               </CTAButton>
             </motion.div>
-
           </div>
         </div>
       </div>

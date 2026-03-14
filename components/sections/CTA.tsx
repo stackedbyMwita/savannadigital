@@ -88,17 +88,19 @@ export default function CTA() {
             <CTAButton
               href="/contact"
               size="lg"
+              variant='ghost'
             >
               Start a Project
             </CTAButton>
-
-            <a
-              href={`mailto:${site.contact.email}`}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-white/80 hover:text-white transition-colors duration-200"
+            <CTAButton
+              href={"mailto:iamalexmwita@gmail.com"}
+              size="lg"
+              variant='primary'
+              className='border-2'
+              arrow
             >
               Or email us directly
-              <ArrowUpRight size={15} />
-            </a>
+            </CTAButton>
           </motion.div>
 
           {/* Contact details strip */}
@@ -107,7 +109,7 @@ export default function CTA() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.32 }}
-            className="flex flex-col sm:flex-row items-center gap-6 pt-6 border-t w-full justify-center"
+            className="flex flex-col sm:flex-row items-center pt-6 border-t w-full justify-center"
             style={{ borderColor: 'rgba(255,255,255,0.15)' }}
           >
             <a
