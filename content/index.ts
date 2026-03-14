@@ -1,5 +1,6 @@
 import { SiteConfig } from '@/types/site'
 import { savannaDigital } from './savanna-digital'
+import { chaiClay } from './chai-clay'
 
 // ─────────────────────────────────────────────────────────────
 // CONTENT INDEX
@@ -22,7 +23,7 @@ const siteId = process.env.NEXT_PUBLIC_SITE_ID ?? 'savanna-digital'
 
 const sites: Record<string, SiteConfig> = {
   'savanna-digital': savannaDigital,
-  // 'chai-clay':        chaiClay,
+  'chai-clay':        chaiClay,
   // 'mbegu-agritech':   mbeguAgritech,
   // 'nexaflow-ai':      nexaflowAI,
   // 'verdant-living':   verdantLiving,
