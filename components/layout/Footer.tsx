@@ -114,7 +114,7 @@ function FooterColumns() {
       {/* Large background wordmark — decorative */}
       <div
         aria-hidden
-        className="absolute bottom-0 right-0 leading-none select-none pointer-events-none overflow-hidden"
+        className="absolute bottom-0 right-10 leading-none select-none pointer-events-none overflow-hidden"
         style={{
           fontSize: 'clamp(6rem, 18vw, 16rem)',
           fontWeight: 900,

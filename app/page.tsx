@@ -2,8 +2,7 @@ import About from '@/components/sections/About';
 import Blog from '@/components/sections/Blog';
 import Clients from '@/components/sections/Clients';
 import CTA from '@/components/sections/CTA';
-import { HeroGPT } from '@/components/sections/HeroGPT';
-import HeroSection from '@/components/sections/HeroSection';
+import { Hero } from '@/components/sections/HeroSection';
 import Services from '@/components/sections/Services';
 import Stats from '@/components/sections/Stats';
 import Testimonials from '@/components/sections/Testimonials';
@@ -16,8 +15,7 @@ import Work from '@/components/sections/Work';
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
-      <HeroGPT />
+      <Hero />
       <Clients />
       <Stats />
       <About />
