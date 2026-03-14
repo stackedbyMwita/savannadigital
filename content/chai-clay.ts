@@ -48,7 +48,7 @@ export const chaiClay: SiteConfig = {
   // ── Hero ─────────────────────────────────────────────────
   hero: {
     eyebrow:        'Nairobi Interior Design Studio',
-    headline:       ['Spaces That', 'Tell Your', 'Story.'],
+    headline:       ['Spaces That', 'Tell Your Story'],
     subheadline:    'We design interiors that weave Kenyan craft, material, and soul into spaces worth living in. Residential, commercial, and hospitality — from concept to completion.',
     cta:            { label: 'Book a Consultation', href: '/contact' },
     secondaryCta:   { label: 'See Our Portfolio',   href: '/work'    },

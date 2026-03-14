@@ -11,19 +11,16 @@ import { useLenis } from '@/components/providers/LenisProvider'
 
 export const NAV_HEIGHT_PX = 72
 
-// ─────────────────────────────────────────────────────────────
 // DESKTOP NAV LINK
-// ─────────────────────────────────────────────────────────────
-
 function DesktopNavLink({
   item,
   isActive,
   useLightNav,
   onAnchorClick,
 }: {
-  item:          typeof site.nav[0]
-  isActive:      boolean
-  useLightNav:   boolean
+  item: typeof site.nav[0]
+  isActive: boolean
+  useLightNav: boolean
   onAnchorClick?: (e: React.MouseEvent) => void
 }) {
   const [hovered, setHovered] = useState(false)
@@ -46,11 +43,11 @@ function DesktopNavLink({
       <span
         className="absolute left-0 rounded-full block"
         style={{
-          bottom:          -3,
-          height:          1.5,
-          width:           hovered || isActive ? '100%' : '0%',
+          bottom: -3,
+          height: 2.5,
+          width: hovered || isActive ? '100%' : '0%',
           backgroundColor: useLightNav ? 'rgba(255,255,255,0.7)' : 'var(--color-primary)',
-          transition:      'width 0.22s ease',
+          transition: 'width 0.22s ease',
         }}
       />
     </span>
@@ -70,27 +67,24 @@ function DesktopNavLink({
   return <Link href={item.href} className="p-0">{inner}</Link>
 }
 
-// ─────────────────────────────────────────────────────────────
 // NAVBAR
-// ─────────────────────────────────────────────────────────────
-
 export function Navbar() {
-  const [visible,  setVisible]  = useState(true)
-  const [atTop,    setAtTop]    = useState(true)
+  const [visible, setVisible] = useState(true)
+  const [atTop, setAtTop] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
-  const lastScrollY             = useRef(0)
-  const pathname                = usePathname()
-  const router                  = useRouter()
-  const lenis                   = useLenis()
+  const lastScrollY = useRef(0)
+  const pathname = usePathname()
+  const router = useRouter()
+  const lenis = useLenis()
 
   // Hide/show on scroll
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY
       setAtTop(y < 10)
-      if (y < 10)                              setVisible(true)
+      if (y < 10) setVisible(true)
       else if (y > lastScrollY.current && y > 80) setVisible(false)
-      else                                     setVisible(true)
+      else setVisible(true)
       lastScrollY.current = y
     }
     onScroll()
@@ -136,17 +130,17 @@ export function Navbar() {
 
   return (
     <>
-      {/* ── Navbar bar ────────────────────────────────────── */}
+      {/* ── Navbar bar */}
       <nav
         className="fixed top-0 inset-x-0 z-50 flex items-center"
         style={{
-          height:               NAV_HEIGHT_PX,
-          transform:            visible ? 'translateY(0)' : 'translateY(-110%)',
-          transition:           'transform 0.4s ease, background-color 0.45s ease, box-shadow 0.4s ease',
-          backgroundColor:      atTop && !menuOpen ? 'transparent' : 'rgba(255,255,255,0.88)',
-          backdropFilter:       atTop && !menuOpen ? 'none' : 'blur(18px)',
+          height: NAV_HEIGHT_PX,
+          transform: visible ? 'translateY(0)' : 'translateY(-110%)',
+          transition: 'transform 0.4s ease, background-color 0.45s ease, box-shadow 0.4s ease',
+          backgroundColor: atTop && !menuOpen ? 'transparent' : 'rgba(255,255,255,0.88)',
+          backdropFilter: atTop && !menuOpen ? 'none' : 'blur(18px)',
           WebkitBackdropFilter: atTop && !menuOpen ? 'none' : 'blur(18px)',
-          boxShadow:            atTop && !menuOpen ? 'none' : '0 1px 0 rgba(0,0,0,0.06)',
+          boxShadow: atTop && !menuOpen ? 'none' : '0 1px 0 rgba(0,0,0,0.06)',
         }}
       >
         <div className="container flex items-center justify-between w-full">
@@ -192,7 +186,7 @@ export function Navbar() {
             <button
               className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl transition-colors duration-200"
               style={{
-                color:           useLightNav ? '#fff' : 'rgba(28,28,30,0.8)',
+                color: useLightNav ? '#fff' : 'rgba(28,28,30,0.8)',
                 backgroundColor: 'transparent',
               }}
               onClick={() => setMenuOpen(true)}
@@ -206,7 +200,7 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* ── Mobile menu ───────────────────────────────────── */}
+      {/* Mobile menu */}
       {menuOpen && (
         <div
           className="fixed inset-0 z-[60] flex flex-col md:hidden"
@@ -217,7 +211,7 @@ export function Navbar() {
           <div
             className="flex-shrink-0 flex items-center justify-between px-6"
             style={{
-              height:       NAV_HEIGHT_PX,
+              height: NAV_HEIGHT_PX,
               borderBottom: '1px solid rgba(255,255,255,0.07)',
             }}
           >
@@ -272,7 +266,7 @@ export function Navbar() {
                             ? 'white'
                             : 'rgba(255,255,255,0.28)',
                           // Active gets primary accent underline
-                          textDecoration:      isActive ? 'underline' : 'none',
+                          textDecoration: isActive ? 'underline' : 'none',
                           textDecorationColor: 'var(--color-accent)',
                           textUnderlineOffset: 6,
                         }}
@@ -285,7 +279,7 @@ export function Navbar() {
                     <ArrowUpRight
                       size={20}
                       style={{
-                        color:   'var(--color-accent)',
+                        color: 'var(--color-accent)',
                         opacity: isActive ? 1 : 0,
                         // CSS group-hover won't work in inline styles — use className
                       }}
