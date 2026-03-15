@@ -35,8 +35,8 @@ export default function About() {
               className="absolute top-0 left-0 w-[75%] h-[80%] rounded-2xl overflow-hidden shadow-xl"
             >
               <Image
-                src="/sites/savanna-digital/savanna-ds-team.png"
-                alt="Savanna DS team working"
+                src={site.hero.hero1}
+                alt="Team working"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 60vw, 35vw"
@@ -53,7 +53,7 @@ export default function About() {
               style={{ border: `4px solid ${site.tokens.surface}` }}
             >
               <Image
-                src="/sites/savanna-digital/team-collab.png"
+                src={site.hero.hero2}
                 alt="Team collaboration"
                 fill
                 className="object-cover"

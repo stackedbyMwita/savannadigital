@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
-import { ArrowUpRight, Mail, Phone } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 import { site } from '@/content'
 import { CTAButton } from '@/components/ui/CTAButton'
 

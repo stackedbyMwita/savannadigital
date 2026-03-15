@@ -53,6 +53,9 @@ export const savannaDigital: SiteConfig = {
     cta:            { label: 'Start a Project', href: '/contact' },
     secondaryCta:   { label: 'See Our Work',    href: '/work'    },
     backgroundType: 'gradient',
+    backgroundSrc:  '/sites/savanna-digital/hero.png',
+    hero1: "/sites/savanna-digital/hero-1.png",
+    hero2: "/sites/savanna-digital/hero-2.png",
   },
 
   // ── Stats ────────────────────────────────────────────────

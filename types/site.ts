@@ -182,6 +182,8 @@ export type SiteConfig = {
     secondaryCta?:  { label: string; href: string }
     backgroundType: 'gradient' | 'image' | 'particles'
     backgroundSrc?: string      // Required when backgroundType = 'image'
+    hero1: string
+    hero2: string
   }
 
   stats:        Stat[]

@@ -54,6 +54,8 @@ export const chaiClay: SiteConfig = {
     secondaryCta:   { label: 'See Our Portfolio',   href: '/work'    },
     backgroundType: 'image',
     backgroundSrc:  '/sites/chai-clay/hero.png',
+    hero1: "/sites/chai-clay/hero-1.png",
+    hero2: "/sites/chai-clay/hero-2.png",
   },
 
   // ── Stats ────────────────────────────────────────────────
