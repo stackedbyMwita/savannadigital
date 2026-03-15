@@ -6,6 +6,7 @@ import { site } from '@/content'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { NewsletterStrip } from '@/components/ui/NewsletterStrip'
 import { BlogSidebar } from '@/components/ui/BlogSidebar'
+import { Button } from '@/components/ui/button'
 
 // ─────────────────────────────────────────────────────────────
 // STATIC PARAMS
@@ -46,77 +47,20 @@ export default async function BlogPostPage({
   if (!post) notFound()
 
   const author       = site.team.find((m) => m.name === post.author.name)
-  // Related: same category first, then others — max 2
   const sameCategory = site.blog.filter((p) => p.slug !== post.slug && p.category === post.category)
   const others       = site.blog.filter((p) => p.slug !== post.slug && p.category !== post.category)
   const relatedPosts = [...sameCategory, ...others].slice(0, 2)
 
-  // Tags: post.tags first, fall back to [category]
   const tags = post.tags ?? [post.category]
-
-  // TOC: post.toc if provided
-  const toc = post.toc ?? []
+  const toc  = post.toc ?? []
 
   return (
     <PageWrapper noPadding noMaxWidth noAnimation>
 
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <div className="w-full" style={{ backgroundColor: site.tokens.surface }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-12 pt-10 pb-0">
+      {/* ── Hero (cover image as background) ─────────────── */}
+      <div className="relative w-full" style={{ minHeight: '85vh' }}>
 
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-medium mb-8 transition-all duration-200 hover:gap-3"
-            style={{ color: site.tokens.muted }}
-          >
-            <ArrowLeft size={15} />
-            Back to Blog
-          </Link>
-
-          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <span
-              className="text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full"
-              style={{ backgroundColor: site.tokens.primary, color: 'white' }}
-            >
-              {post.category}
-            </span>
-            <span className="flex items-center gap-1.5 text-sm" style={{ color: site.tokens.muted }}>
-              <Calendar size={13} />{formatDate(post.date)}
-            </span>
-            <span className="flex items-center gap-1.5 text-sm" style={{ color: site.tokens.muted }}>
-              <Clock size={13} />{post.readTime}
-            </span>
-          </div>
-
-          <h1
-            className="text-3xl md:text-5xl font-bold leading-tight tracking-tight max-w-4xl mb-8"
-            style={{ color: site.tokens.dark }}
-          >
-            {post.title}
-          </h1>
-
-          {/* Author row */}
-          <div className="flex items-center gap-4 pb-10">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0">
-              <Image
-                src={post.author.avatar}
-                alt={post.author.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <p className="text-sm font-semibold" style={{ color: site.tokens.text }}>{post.author.name}</p>
-              <p className="text-xs" style={{ color: site.tokens.muted }}>
-                {author?.role ?? 'Writer'} · {site.name}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Cover image ───────────────────────────────────── */}
-      <div className="w-full relative" style={{ aspectRatio: '21/8', maxHeight: 520 }}>
+        {/* Background image */}
         <Image
           src={post.coverImage}
           alt={post.title}
@@ -125,10 +69,82 @@ export default async function BlogPostPage({
           className="object-cover"
           sizes="100vw"
         />
+
+        {/* Multi-layer gradient: subtle top, heavy at bottom */}
         <div
           className="absolute inset-0"
-          style={{ background: 'rgba(0,0,0,0.4)' }}
+          style={{
+            background: `linear-gradient(
+              to bottom,
+              rgba(0,0,0,0.30) 0%,
+              rgba(0,0,0,0.20) 35%,
+              rgba(0,0,0,0.68) 70%,
+              rgba(0,0,0,0.88) 100%
+            )`,
+          }}
         />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-between h-full" style={{ minHeight: '85vh' }}>
+
+          {/* Top nav */}
+          <div className="max-w-7xl mx-auto w-full px-6 md:px-10 xl:px-12 pt-12">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 hover:gap-3"
+              style={{ color: 'rgba(255,255,255,0.55)' }}
+            >
+              <Button variant="outline">
+                <ArrowLeft size={15} />
+                Back to Blog
+              </Button>
+            </Link>
+          </div>
+
+          {/* Bottom title block */}
+          <div className="max-w-7xl mx-auto w-full px-6 md:px-10 xl:px-12 pb-16">
+
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-4 mb-5">
+              <span
+                className="text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full"
+                style={{ backgroundColor: site.tokens.primary, color: 'white' }}
+              >
+                {post.category}
+              </span>
+              <span className="flex items-center gap-1.5 text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                <Calendar size={13} />{formatDate(post.date)}
+              </span>
+              <span className="flex items-center gap-1.5 text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                <Clock size={13} />{post.readTime}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight max-w-4xl mb-8 text-white">
+              {post.title}
+            </h1>
+
+            {/* Author row */}
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white/20">
+                <Image
+                  src={post.author.avatar}
+                  alt={post.author.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">{post.author.name}</p>
+                <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                  {author?.role ?? 'Writer'} · {site.name}
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
 
       {/* ── Body + sidebar ────────────────────────────────── */}

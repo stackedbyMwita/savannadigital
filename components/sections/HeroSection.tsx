@@ -146,7 +146,7 @@ export function Hero() {
         transition={{ duration: 0.6, delay: 0.8 }}
         className="flex flex-wrap items-center justify-center gap-4"
       >
-        <CTAButton href={site.hero.cta.href} variant="primary" size="lg">
+        <CTAButton href={site.hero.cta.href} variant="primary" size="md">
           {site.hero.cta.label}
         </CTAButton>
 
@@ -154,7 +154,7 @@ export function Hero() {
           <CTAButton
             href={site.hero.secondaryCta.href}
             variant="outline"
-            size="lg"
+            size="md"
             arrow
           >
             {site.hero.secondaryCta.label}

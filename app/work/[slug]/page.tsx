@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { site } from '@/content'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { CTAButton } from '@/components/ui/CTAButton'
+import { Button } from '@/components/ui/button'
 
 // ─────────────────────────────────────────────────────────────
 // STATIC PARAMS
@@ -63,70 +64,10 @@ export default async function WorkSlugPage({
   return (
     <PageWrapper noPadding noMaxWidth noAnimation>
 
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <div className="w-full pb-0" style={{ backgroundColor: site.tokens.dark }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-12 pt-12 pb-14">
+      {/* ── Hero (cover image as background) ─────────────── */}
+      <div className="relative w-full" style={{ minHeight: '85vh' }}>
 
-          <Link
-            href="/work"
-            className="inline-flex items-center gap-2 text-sm font-medium mb-10 transition-all duration-200 hover:gap-3"
-            style={{ color: 'rgba(255,255,255,0.4)' }}
-          >
-            <ArrowLeft size={15} />
-            All Work
-          </Link>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-wrap gap-2">
-                <span
-                  className="text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full"
-                  style={{ backgroundColor: site.tokens.primary, color: 'white' }}
-                >
-                  {item.category}
-                </span>
-                <span
-                  className="text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.6)' }}
-                >
-                  {item.client}
-                </span>
-              </div>
-
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight text-white">
-                {item.title}
-              </h1>
-
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                {item.summary}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: 'Client',   value: item.client },
-                { label: 'Category', value: item.category },
-                { label: 'Year',     value: cs?.year     ?? '—' },
-                { label: 'Duration', value: cs?.duration ?? '—' },
-              ].map((m) => (
-                <div
-                  key={m.label}
-                  className="flex flex-col gap-1 p-4 rounded-xl"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
-                >
-                  <span className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                    {m.label}
-                  </span>
-                  <span className="text-sm font-semibold text-white">{m.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Cover image ───────────────────────────────────── */}
-      <div className="w-full relative" style={{ aspectRatio: '21/8', maxHeight: 560 }}>
+        {/* Background image */}
         <Image
           src={item.coverImage}
           alt={item.title}
@@ -135,10 +76,96 @@ export default async function WorkSlugPage({
           className="object-cover"
           sizes="100vw"
         />
+
+        {/* Multi-layer overlay: dark at bottom for legibility, subtle tint overall */}
         <div
           className="absolute inset-0"
-          style={{ background: 'rgba(0,0,0,0.4)' }}
+          style={{
+            background: `linear-gradient(
+              to bottom,
+              rgba(0,0,0,0.35) 0%,
+              rgba(0,0,0,0.25) 40%,
+              rgba(0,0,0,0.72) 75%,
+              rgba(0,0,0,0.90) 100%
+            )`,
+          }}
         />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-between h-full" style={{ minHeight: '85vh' }}>
+
+          {/* Top nav */}
+          <div className="max-w-7xl mx-auto w-full px-6 md:px-10 xl:px-12 pt-12">
+            <Link
+              href="/work"
+              className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 hover:gap-3"
+              style={{ color: 'rgba(255,255,255,0.55)' }}
+            >
+              <Button variant="outline">
+                <ArrowLeft size={15} />
+                All Work
+              </Button>
+            </Link>
+          </div>
+
+          {/* Bottom title block */}
+          <div className="max-w-7xl mx-auto w-full px-6 md:px-10 xl:px-12 pb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-end">
+
+              {/* Left: tags + title + summary */}
+              <div className="flex flex-col gap-5">
+                <div className="flex flex-wrap gap-2">
+                  <span
+                    className="text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full"
+                    style={{ backgroundColor: site.tokens.primary, color: 'white' }}
+                  >
+                    {item.category}
+                  </span>
+                  <span
+                    className="text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.7)' }}
+                  >
+                    {item.client}
+                  </span>
+                </div>
+
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-white">
+                  {item.title}
+                </h1>
+
+                <p className="text-base leading-relaxed max-w-lg" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                  {item.summary}
+                </p>
+              </div>
+
+              {/* Right: meta grid */}
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { label: 'Client',   value: item.client },
+                  { label: 'Category', value: item.category },
+                  { label: 'Year',     value: cs?.year     ?? '—' },
+                  { label: 'Duration', value: cs?.duration ?? '—' },
+                ].map((m) => (
+                  <div
+                    key={m.label}
+                    className="flex flex-col gap-1 p-4 rounded-xl"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.08)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                  >
+                    <span className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      {m.label}
+                    </span>
+                    <span className="text-sm font-semibold text-white">{m.value}</span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* ── Results bar ───────────────────────────────────── */}
@@ -189,7 +216,6 @@ export default async function WorkSlugPage({
                   </NarrativeSection>
                 </>
               ) : (
-                // No caseStudy — just show summary
                 <p className="text-base leading-relaxed" style={{ color: site.tokens.muted }}>
                   {item.summary}
                 </p>

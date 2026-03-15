@@ -62,7 +62,7 @@ export default function CTA() {
             className="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-white"
           >
             Have a project in mind?{' '}
-            <span style={{ color: site.tokens.accent }}>Let's talk.</span>
+            <span style={{ color: site.tokens.accent }} className='italic'>Let's talk.</span>
           </motion.h2>
 
           {/* Sub */}
