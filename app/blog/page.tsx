@@ -257,7 +257,7 @@ export default function BlogPage() {
                     <div key={member.name} className="flex items-center gap-3">
                       <div className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0">
                         <Image
-                          src={`https://i.pravatar.cc/72?u=${member.name}`}
+                          src={member.avatar}
                           alt={member.name}
                           fill
                           className="object-cover"
